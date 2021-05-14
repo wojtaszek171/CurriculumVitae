@@ -3,6 +3,15 @@
     flex-direction: column;
     height: 100vh;
     color: #3e3e3e;
+    text-shadow: #96a1ad 0.1em 0.1em 0.2em;
+
+    .header-title {
+        cursor: pointer;
+        font-weight: bold;
+        line-height: 53px;
+        margin-left: 20px;
+        font-size: 1.5rem;
+    }
 }
 
 .noselect {

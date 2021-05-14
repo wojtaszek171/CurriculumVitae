@@ -1,0 +1,20 @@
+.contact-component {
+
+    .contact-header {
+        font-size: 1em;
+    }
+
+    .contact-section {
+        display: flex;
+        flex-direction: column;
+
+        .section-title {
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .section-content {
+            
+        }
+    }
+}

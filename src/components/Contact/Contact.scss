@@ -5,10 +5,11 @@
     }
 
     .contact-section {
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
 
-        .section-title {
+        .contact-section-title {
             text-transform: uppercase;
             font-weight: bold;
         }

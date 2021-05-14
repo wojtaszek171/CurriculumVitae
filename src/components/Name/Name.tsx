@@ -1,6 +1,7 @@
+import { FC } from 'react';
 import './Name.scss';
 
-function Name() {
+const Name: FC = () => {
 
   return (
     <div className="name-component">

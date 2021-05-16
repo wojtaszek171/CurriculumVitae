@@ -1,6 +1,7 @@
 import Contact from '../Contact';
 import EducationItem from '../EducationItem';
 import JobItem from '../JobItem';
+import SkillItem from '../SkillItem';
 import Name from '../TopBar';
 import SectionWrapper from './SectionWrapper';
 import './Content.scss';
@@ -20,12 +21,18 @@ function Content() {
           <SectionWrapper
             title='Skills'
           >
-            <></>
+            <SkillItem
+              title='React'
+              rating={3}
+            />
           </SectionWrapper>
           <SectionWrapper
             title='Languages'
           >
-            <></>
+            <SkillItem
+              title='English'
+              rating={4}
+            />
           </SectionWrapper>
         </div>
         <div className='main-content'>

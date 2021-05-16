@@ -1,0 +1,27 @@
+.skill-component {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+
+    .skill-title {
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .skill-rating {
+        display: flex;
+        margin-top: 10px;
+
+        .rating-dot {
+            margin: 0 2px;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: #d5d6d6;
+
+            &.full {
+                background-color: #373d48;
+            }
+        }
+    }
+}

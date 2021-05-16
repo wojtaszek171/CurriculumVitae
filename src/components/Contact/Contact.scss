@@ -1,13 +1,16 @@
 .contact-component {
 
     .contact-header {
-        font-size: 1em;
+        font-size: 1rem;
     }
 
     .contact-section {
-        margin-top: 20px;
         display: flex;
         flex-direction: column;
+
+        &:not(:first-child) {
+            margin-top: 20px;
+        }
 
         .contact-section-title {
             text-transform: uppercase;

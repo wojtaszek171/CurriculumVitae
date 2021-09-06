@@ -2,7 +2,7 @@ import Contact from '../Contact';
 import EducationItem from '../EducationItem';
 import JobItem from '../JobItem';
 import SkillItem from '../SkillItem';
-import Name from '../TopBar';
+import TopBar from '../TopBar';
 import SectionWrapper from './SectionWrapper';
 import './Content.scss';
 
@@ -10,7 +10,7 @@ function Content() {
 
   return (
     <div className="content-component">
-      <Name />
+      <TopBar />
       <div className='content-wrapper'>
         <div className='side-content'>
           <SectionWrapper
@@ -47,7 +47,12 @@ function Content() {
           <SectionWrapper
             title='Employment'
           >
-            <JobItem />
+            <JobItem
+              title={'Software Engineer, Microstrategy Poland'}
+              location={'Warsaw, Poland'}
+              timeFrame={'Dec 2019 - Present'}
+              details={'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam cursus enim non lorem ultricies luctus. Duis non porttitor dui, at pulvinar ante. Donec iaculis ligula non leo rhoncus sodales. Donec commodo ante ligula, nec pellentesque mauris mollis eu. Morbi porta lobortis nisi eget lacinia. Fusce nec mollis purus. Suspendisse fringilla blandit elit, ac imperdiet est porta id. Cras dapibus mauris vel facilisis accumsan'}
+            />
           </SectionWrapper>
           <SectionWrapper
             title='Education'

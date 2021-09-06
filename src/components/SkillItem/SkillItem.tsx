@@ -14,8 +14,8 @@ const SkillItem: FC<SkillItemProps> = ({ title, rating }) => {
     <div className='skill-component'>
       <span className='skill-title'>{title}</span>
       <div className='skill-rating'>
-        {[...Array(rating)].map(() => <div className={'rating-dot full'}/>)}
-        {[...Array(RATING_MAX-rating)].map(() => <div className={'rating-dot'}/>)}
+        {[...Array(rating)].map((el, i) => <div className={'rating-dot full'} key={`dot${i}full`}/>)}
+        {[...Array(RATING_MAX-rating)].map((el, i) => <div className={'rating-dot'} key={`dot${i}`}/>)}
       </div>
     </div>
   );

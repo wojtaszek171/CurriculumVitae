@@ -3,12 +3,15 @@ import photoJPG from './profile.jpg';
 import ImageEdit from './ImageEdit';
 import { useSelector } from 'react-redux';
 import { getIsTokenValid } from '../../selectors/session';
+import SectionText from '../SectionText';
 import './TopBar.scss';
 
 const Name: FC = () => {
   const isLoggedIn = useSelector(getIsTokenValid);
 
   const [photo, setPhoto] = useState<string | undefined>(undefined);
+  const name = 'PAWEŁ\nWOJTASZKO';
+  const profession = 'Software Engineer'
 
   const fileToDataUri = (file: any) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -33,6 +36,14 @@ const Name: FC = () => {
     }
   }, []);
 
+  const handleNameSave = () => {
+
+  };
+
+  const handleProfessionSave = () => {
+
+  };
+
   return (
     <div className="top-bar-component">
       <ImageEdit
@@ -40,9 +51,18 @@ const Name: FC = () => {
         photo={photo || ''}
       />
       <div className='name-wrapper'>
-        <span className='person-name'>Paweł</span>
-        <span className='person-surname'>Wojtaszko</span>
-        <span className='person-profession'>Software Engineer</span>
+        <span className='person-name'>
+          <SectionText
+            text={name}
+            onSave={handleNameSave}
+          />
+        </span>
+        <span className='person-profession'>
+          <SectionText
+            text={profession}
+            onSave={handleProfessionSave}
+          />
+        </span>
       </div>
     </div>
   );

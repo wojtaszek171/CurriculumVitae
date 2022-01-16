@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useRef } from 'react';
+import { ChangeEvent, FC, useCallback, useEffect, useRef } from 'react';
 import './EditableText.scss';
 
 
@@ -13,13 +13,17 @@ interface TextAreaProps {
 const TextArea: FC<TextAreaProps> = ({ text, onChange, resizeable, autoExpand, editMode }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const onTextAreaInput = () => {
+  const onTextAreaInput = useCallback(() => {
     const textareaCurrent = textareaRef.current;
     if (textareaCurrent && autoExpand) {
       textareaCurrent.style.height = ""; /* Reset the height*/
       textareaCurrent.style.height = textareaCurrent.scrollHeight + "px";
     }
-  };
+  }, [autoExpand]);
+  
+  useEffect(() => {
+    onTextAreaInput();
+  }, [editMode, onTextAreaInput]);
 
   const handleTextareaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     onChange(e.target.value);

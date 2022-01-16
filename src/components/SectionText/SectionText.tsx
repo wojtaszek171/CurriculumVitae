@@ -1,10 +1,12 @@
-import { FC, useState } from 'react';
+import { FC, MouseEvent, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getIsTokenValid } from '../../selectors/session';
 import EditableText from '../EditableText';
 import './SectionText.scss';
 
 interface TextAreaProps {
   text: string;
-  onChange: (newValue: string) => void;
+  onChange?: (newValue: string) => void;
   editable?: boolean;
   onSave?: () => void;
   onRemove?: () => void;
@@ -14,16 +16,47 @@ interface TextAreaProps {
 
 const SectionText: FC<TextAreaProps> = ({ text, editable, onChange, onSave, onRemove }) => {
   const [editMode, setEditMode] = useState(false);
+  const [editedText, setEditedText] = useState(text);
+  const isLoggedIn = useSelector(getIsTokenValid);
+
+  const handleEditChange = (str: string) => {
+    setEditedText(str);
+
+    if (onChange)
+      onChange(str);
+  }
+
+  const handleCancel = (e: MouseEvent<HTMLSpanElement>) => {
+    e.stopPropagation();
+
+    setEditMode(false);
+    setEditedText(text);
+    if (onChange)
+      onChange(text);
+  };
+
+  const handleSave = (e: MouseEvent<HTMLSpanElement>) => {
+    e.stopPropagation();
+    setEditMode(false);
+
+    if (onSave)
+      onSave();
+  };
+
+  const canEdit = (editable !== undefined) ? editable : isLoggedIn;
 
   return (
-    <div className={'section-text-component'}>
+    <div
+      className={'section-text-component'}
+      onClick={() => setEditMode(true)}
+    >
       <EditableText
-        text={text}
-        onChange={onChange}
+        text={editedText}
+        onChange={handleEditChange}
         editMode={editMode}
         autoExpand
       />
-      {editable && <div className={`section-text-edit-buttons${editMode ? ' visible' : ''}`}>
+      {canEdit && <div className={`section-text-edit-buttons${editMode ? ' visible' : ''}`}>
         {!editMode && <span
           className='edit-button'
           onClick={() => setEditMode(true)}
@@ -32,13 +65,13 @@ const SectionText: FC<TextAreaProps> = ({ text, editable, onChange, onSave, onRe
         </span>}
         {editMode && <span
           className='save-button'
-          onClick={onSave}
+          onClick={handleSave}
         >
           ✓
         </span>}
         {editMode && <span
           className='cancel-button'
-          onClick={() => setEditMode(false)}
+          onClick={handleCancel}
         >
           ✕
         </span>}

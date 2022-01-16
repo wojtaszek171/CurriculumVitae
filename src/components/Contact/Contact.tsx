@@ -9,8 +9,6 @@ const Contact = () => {
   const [phone, setPhone] = useState('(123) 123 456 789');
   const [email, setEmail] = useState('pawelwojtaszko@o2.pl');
 
-  const isLoggedIn = useSelector(getIsTokenValid);
-
   const handleAddressSave = () => {
 
   }
@@ -30,8 +28,6 @@ const Contact = () => {
         <span className='section-content'>
           <SectionText
             text={address}
-            editable={isLoggedIn}
-            onChange={setAddress}
             onSave={handleAddressSave}
           />
         </span>
@@ -41,8 +37,6 @@ const Contact = () => {
         <span className='section-content'>
           <SectionText
             text={phone}
-            editable={isLoggedIn}
-            onChange={setPhone}
             onSave={handlePhoneSave}
           />
         </span>
@@ -52,8 +46,6 @@ const Contact = () => {
         <span className='section-content'>
           <SectionText
             text={email}
-            editable={isLoggedIn}
-            onChange={setEmail}
             onSave={handleEmailSave}
           />
         </span>

@@ -1,7 +1,6 @@
 .section-text-component {
     display: flex;
     flex-direction: row;
-    padding: 10px 0;
 
     &:hover {
         .section-text-edit-buttons {
@@ -9,10 +8,15 @@
         }
     }
 
+    .pwd-textarea-component {
+        flex: 1;
+    }
+
     .section-text-edit-buttons {
         display: none;
         flex-direction: column;
         padding-left: 10px;
+        width: 18px;
 
         &.visible {
             display: flex;
@@ -21,7 +25,6 @@
         span {
             cursor: pointer;
             text-align: center;
-            font-size: 25px;
 
             &.remove-button {
                 color: red;

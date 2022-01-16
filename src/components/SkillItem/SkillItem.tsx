@@ -1,4 +1,7 @@
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
+import { getIsTokenValid } from '../../selectors/session';
+import SectionText from '../SectionText';
 import './SkillItem.scss';
 
 const RATING_MAX = 5;
@@ -9,11 +12,21 @@ interface SkillItemProps {
 }
 
 const SkillItem: FC<SkillItemProps> = ({ title, rating }) => {
+  const isLoggedIn = useSelector(getIsTokenValid);
+
+  const handleSkillNameSave = () => {
+
+  };
 
   return (
     <div className='skill-component'>
-      <span className='skill-title'>{title}</span>
-      <div className='skill-rating'>
+      <span className='skill-title'>
+        <SectionText
+          text={title}
+          onSave={handleSkillNameSave}
+        />
+      </span>
+      <div className={`skill-rating${isLoggedIn ? ' editable' : ''}`}>
         {[...Array(rating)].map((el, i) => <div className={'rating-dot full'} key={`dot${i}full`}/>)}
         {[...Array(RATING_MAX-rating)].map((el, i) => <div className={'rating-dot'} key={`dot${i}`}/>)}
       </div>

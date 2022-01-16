@@ -23,5 +23,25 @@
                 background-color: #373d48;
             }
         }
+
+        &.editable {
+            .rating-dot {
+                cursor: pointer;
+            }
+
+            &:hover {
+                .rating-dot {
+                    background-color: #373d48;
+                }
+            }
+
+            .rating-dot:hover {
+                background-color: #373d48;
+
+                & ~ .rating-dot {
+                    background-color: #d5d6d6;
+                }
+            }
+        }
     }
 }

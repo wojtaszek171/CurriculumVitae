@@ -18,6 +18,10 @@ const SkillItem: FC<SkillItemProps> = ({ title, rating }) => {
 
   };
 
+  const handleRatingChange = (rating: number) => {
+    
+  }
+
   return (
     <div className='skill-component'>
       <span className='skill-title'>
@@ -27,8 +31,20 @@ const SkillItem: FC<SkillItemProps> = ({ title, rating }) => {
         />
       </span>
       <div className={`skill-rating${isLoggedIn ? ' editable' : ''}`}>
-        {[...Array(rating)].map((el, i) => <div className={'rating-dot full'} key={`dot${i}full`}/>)}
-        {[...Array(RATING_MAX-rating)].map((el, i) => <div className={'rating-dot'} key={`dot${i}`}/>)}
+        {[...Array(rating)].map((el, i) =>
+          <div
+            className={'rating-dot full'}
+            onClick={() => handleRatingChange(i + 1)}
+            key={`dot${i}full`}
+          />
+        )}
+        {[...Array(RATING_MAX-rating)].map((el, i) =>
+          <div
+            className={'rating-dot'}
+            onClick={() => handleRatingChange(rating + i + 1)}
+            key={`dot${i}`}
+          />
+        )}
       </div>
     </div>
   );

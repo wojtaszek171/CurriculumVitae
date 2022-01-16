@@ -19,3 +19,20 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+.right-button {
+    color: inherit;
+    font-weight: bold;
+    text-decoration: none;
+    float: right;
+    line-height: 53px;
+    margin-right: 20px;
+
+    &:active {
+        color: inherit;
+    }
+}
+
+.pwd-header-component .pwd-header-dropdown .pwd-dropdown-content a {
+    color: inherit;
+}

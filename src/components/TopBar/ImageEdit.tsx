@@ -13,6 +13,7 @@ const ImageEdit: FC<ImageEditProps> = ({ photo, edit }) => {
     <div className='person-photo'>
         {edit ?
             <ImageUpload
+                photo={photo}
                 edit={edit}
                 round
             /> :

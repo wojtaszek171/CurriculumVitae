@@ -4,14 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { eraseCookie, getCookie } from '../../helpers';
 import { clearSession, setSessionData } from '../../reducers/session/session';
 import { getCurrentUser } from '../../restService/restService';
-import { getAuthToken, getFirstName, getLastName } from '../../selectors/session';
+import { getFirstName, getIsTokenValid, getLastName } from '../../selectors/session';
 import Content from '../Content';
 import Login from '../Login';
 import './MainContainer.scss';
 
 const MainContainer = () => {
   const [loginVisible, setLoginVisible] = useState(false);
-  const authToken = useSelector(getAuthToken);
+  const isLoggedIn = useSelector(getIsTokenValid);
   const firstName = useSelector(getFirstName);
   const lastName = useSelector(getLastName);
   const dispatch = useDispatch();
@@ -41,8 +41,6 @@ const MainContainer = () => {
     setLoginVisible(false);
   }
 
-  const loggedIn = !!(authToken && firstName);
-
   const handleLogout = () => {
     eraseCookie('token');
     dispatch(clearSession());
@@ -67,9 +65,9 @@ const MainContainer = () => {
               Curriculum Vitae
             </span>
           }
-          right={<>{!loggedIn && <a href="#" className="right-button" onClick={handleLoginOpen}>Login to edit</a>}</>}
+          right={<>{!isLoggedIn && <a href="#" className="right-button" onClick={handleLoginOpen}>Login to edit</a>}</>}
           dropdownTitle={`${firstName} ${lastName}`}
-          dropdownElements={loggedIn ? dropdownConfig : []}
+          dropdownElements={isLoggedIn ? dropdownConfig : []}
         />
         <Content />
         <Footer />

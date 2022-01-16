@@ -1,0 +1,19 @@
+.pwd-textarea-component {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+
+    textarea {
+        font: inherit;
+        flex: 1;
+        resize: none;
+    }
+
+    &.resizeable {
+        resize: initial;
+    }
+
+    .pwd-textarea-value {
+        white-space: pre-line;
+    }
+}

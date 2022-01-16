@@ -1,0 +1,35 @@
+.section-text-component {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0;
+
+    &:hover {
+        .section-text-edit-buttons {
+            display: flex;
+        }
+    }
+
+    .section-text-edit-buttons {
+        display: none;
+        flex-direction: column;
+        padding-left: 10px;
+
+        &.visible {
+            display: flex;
+        }
+
+        span {
+            cursor: pointer;
+            text-align: center;
+            font-size: 25px;
+
+            &.remove-button {
+                color: red;
+            }
+        }
+
+        &.always-visible{
+            visibility: visible;
+        }
+    }
+}

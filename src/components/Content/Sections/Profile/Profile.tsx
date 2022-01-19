@@ -17,6 +17,7 @@ const Profile: FC = () => {
     >
       <>
         <SectionText
+          placeholder='Profile details'
           text={profile}
           onSave={handleProfileSave}
         />

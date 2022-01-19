@@ -6,11 +6,12 @@ interface TextAreaProps {
   text: string;
   onChange: (newValue: string) => void;
   editMode: boolean
+  placeholder?: string;
   resizeable?: boolean;
   autoExpand?: boolean;
 }
 
-const TextArea: FC<TextAreaProps> = ({ text, onChange, resizeable, autoExpand, editMode }) => {
+const TextArea: FC<TextAreaProps> = ({ text, placeholder, onChange, resizeable, autoExpand, editMode }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const onTextAreaInput = useCallback(() => {
@@ -33,13 +34,14 @@ const TextArea: FC<TextAreaProps> = ({ text, onChange, resizeable, autoExpand, e
     <div className={`pwd-textarea-component${resizeable ? ' resizeable' : ''}`}>
       {editMode
         ? <textarea
+          placeholder={`${placeholder} ✎`}
           ref={textareaRef}
           onChange={handleTextareaChange}
           onInput={onTextAreaInput}
         >
           {text}
         </textarea>
-        : <span className='pwd-textarea-value'>{text}</span>
+        : <span className={`pwd-textarea-value${!text.length && ' placeholder'}`}>{text || `${placeholder} ✎`}</span>
       }
     </div>
   );

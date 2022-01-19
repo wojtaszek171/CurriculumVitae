@@ -54,11 +54,13 @@ const Name: FC = () => {
         <span className='person-name'>
           <SectionText
             text={name}
+            placeholder='Name'
             onSave={handleNameSave}
           />
         </span>
         <span className='person-profession'>
           <SectionText
+            placeholder='Profession'
             text={profession}
             onSave={handleProfessionSave}
           />

@@ -32,12 +32,14 @@ const JobItem: FC<JobItemProps> = ({ title, location, timeFrame, details }) => {
       <div className='job-header'>
         <span className='job-title'>
           <SectionText
+            placeholder='Profession'
             text={title}
             onSave={handleTitleSave}
           />
         </span>
         <span className='job-location'>
           <SectionText
+            placeholder='Office location'
             text={location}
             onSave={handleLocationSave}
           />
@@ -45,12 +47,14 @@ const JobItem: FC<JobItemProps> = ({ title, location, timeFrame, details }) => {
       </div>
       <span className='time-frame'>
         <SectionText
+          placeholder='Time Frame'
           text={timeFrame}
           onSave={handleTimeFrameSave}
         />
       </span>
       <div className='job-details'>
         <SectionText
+          placeholder='Details'
           text={details}
           onSave={handleDetailsSave}
         />

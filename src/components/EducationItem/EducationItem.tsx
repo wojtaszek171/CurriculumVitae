@@ -2,11 +2,13 @@ import { FC } from 'react';
 import SectionText from '../SectionText';
 import './EducationItem.scss';
 
-const EducationItem: FC = () => {
+interface EducationItemProps {
+  title: string;
+  location: string;
+  timeFrame: string;
+}
 
-  const jobTitle = `Master's degree of Computer Science, Lublin University of Technology`;
-  const jobLocation = 'Lublin, Poland';
-  const timeFrame = '2014 - 2019';
+const EducationItem: FC<EducationItemProps> = ({ title, location, timeFrame }) => {
 
   const handleJobTitleSave = () => {
 
@@ -21,23 +23,26 @@ const EducationItem: FC = () => {
   };
 
   return (
-    <div className='job-component'>
-      <div className='job-header'>
-        <span className='job-title'>
+    <div className='education-component'>
+      <div className='education-header'>
+        <span className='education-title'>
           <SectionText
-            text={jobTitle}
+            placeholder='School'
+            text={title}
             onSave={handleJobTitleSave}
           />
         </span>
-        <span className='job-location'>
+        <span className='education-location'>
           <SectionText
-            text={jobLocation}
+            placeholder='School location'
+            text={location}
             onSave={handleJobLoactionSave}
           />
         </span>
       </div>
       <span className='time-frame'>
         <SectionText
+          placeholder='Time frame'
           text={timeFrame}
           onSave={handleJobTimeFrameSave}
         />

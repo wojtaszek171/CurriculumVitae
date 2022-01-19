@@ -27,6 +27,7 @@ const Contact = () => {
         <span className='contact-section-title'>Address</span>
         <span className='section-content'>
           <SectionText
+            placeholder='Address'
             text={address}
             onSave={handleAddressSave}
           />
@@ -36,6 +37,7 @@ const Contact = () => {
         <span className='contact-section-title'>Phone</span>
         <span className='section-content'>
           <SectionText
+            placeholder='Phone'
             text={phone}
             onSave={handlePhoneSave}
           />
@@ -45,6 +47,7 @@ const Contact = () => {
         <span className='contact-section-title'>Email</span>
         <span className='section-content'>
           <SectionText
+            placeholder='Email'
             text={email}
             onSave={handleEmailSave}
           />

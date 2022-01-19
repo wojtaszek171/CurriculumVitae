@@ -10,11 +10,12 @@ interface TextAreaProps {
   editable?: boolean;
   onSave?: () => void;
   onRemove?: () => void;
+  placeholder?: string;
   editButtonsAlwaysVisible?: boolean;
   removeable?: boolean;
 }
 
-const SectionText: FC<TextAreaProps> = ({ text, editable, onChange, onSave, onRemove }) => {
+const SectionText: FC<TextAreaProps> = ({ text, editable, placeholder, onChange, onSave, onRemove }) => {
   const [editMode, setEditMode] = useState(false);
   const [editedText, setEditedText] = useState(text);
   const isLoggedIn = useSelector(getIsTokenValid);
@@ -54,6 +55,7 @@ const SectionText: FC<TextAreaProps> = ({ text, editable, onChange, onSave, onRe
         text={editedText}
         onChange={handleEditChange}
         editMode={editMode}
+        placeholder={placeholder}
         autoExpand
       />
       {canEdit && <div className={`section-text-edit-buttons${editMode ? ' visible' : ''}`}>

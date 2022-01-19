@@ -26,6 +26,7 @@ const SkillItem: FC<SkillItemProps> = ({ title, rating }) => {
     <div className='skill-component'>
       <span className='skill-title'>
         <SectionText
+          placeholder='Skill'
           text={title}
           onSave={handleSkillNameSave}
         />

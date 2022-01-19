@@ -14,5 +14,9 @@
 
     .pwd-textarea-value {
         white-space: pre-line;
+
+        &.placeholder {
+            color: gray;
+        }
     }
 }

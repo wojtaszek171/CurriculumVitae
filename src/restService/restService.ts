@@ -31,8 +31,31 @@ export const authenticateUser = (username: string, password: string) => {
         });
 }
 
-export const getCurrentUser = (token: string) =>
+export const fetchCurrentUser = (token: string) =>
     fetch(`${HOST_URL}/api/users/current`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const fetchPublishedCVs = () =>
+    fetch(`${HOST_URL}/api/cv`, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const fetchOwnedCVs = (token: string) =>
+    fetch(`${HOST_URL}/api/cv/owned`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

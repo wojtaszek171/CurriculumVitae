@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { getOwnedCVsArray, getPublishedCVsArray } from '../../selectors/cvList';
 import { getIsTokenValid } from '../../selectors/session';
+import AddCVButton from './AddCVButton';
 import CVItem from './CVItem';
 import './MainPage.scss';
 
@@ -20,6 +21,7 @@ const MainPage: FC = () => {
         <span className='section-title'>Your cv-s</span>
         <div className='owned-cvs-list'>
           {ownedCVs.map((cv) => <CVItem key={cv.id} {...cv}/>)}
+          <AddCVButton />
         </div>
       </>
       }

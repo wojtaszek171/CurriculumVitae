@@ -1,5 +1,6 @@
-.cv-item-component {
+.add-cv-button {
     display: flex;
+    align-items: center;
     padding: 10px;
     flex-direction: column;
     border: 3px solid #a3a3a3;
@@ -25,18 +26,16 @@
         background-color: #a3a3a3;
     }
 
-    .cv-name {
-        z-index: 1;
-        margin-bottom: 10px;
-        padding: 10px 10px 0 10px;
-        font-weight: bold;
-        font-size: 1.5em;
-    }
+    .button-text-wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
 
-    .cv-profession {
-        z-index: 1;
-        padding: 0 10px;
-        font-size: 1.2em;
-        font-weight: 600;
+        .button-text {
+            font-weight: bold;
+            font-size: 70px;
+            z-index: 1;
+            margin-top: -10px;
+        }
     }
 }

@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { CVItem } from '../../../reducers/cvList/types';
+import cvBg from '../../../assets/cv-icon.png';
 import './CVItemComponent.scss';
 
 const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => {
@@ -13,7 +14,17 @@ const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => 
       className='cv-item-component'
       onClick={handleCVItemClick}
     >
-      
+      <img
+        alt='cv-bg'
+        src={cvBg}
+        draggable="false"
+      />
+      <span className='cv-name'>
+        Pawel Wojtaszko
+      </span>
+      <span className='cv-profession'>
+        Software Engineer
+      </span>
     </div>
   );
 }

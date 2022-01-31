@@ -1,7 +1,7 @@
 import { Button } from 'pwojtaszko-design';
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { getIsTokenValid } from '../../selectors/session';
+import { getIsTokenValid } from '../../store/session/selector';
 import './AddSectionButton.scss';
 
 interface AddSectionButtonProps {

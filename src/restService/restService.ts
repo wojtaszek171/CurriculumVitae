@@ -43,19 +43,8 @@ export const fetchCurrentUser = (token: string) =>
         throw e;
     });
 
-export const fetchPublishedCVs = () =>
+export const fetchCVs = (token: string) =>
     fetch(`${HOST_URL}/api/cv`, {
-        headers: {
-            'Content-Type': 'application/json',
-        }
-    })
-    .then(requestStatus)
-    .catch(e => {
-        throw e;
-    });
-
-export const fetchOwnedCVs = (token: string) =>
-    fetch(`${HOST_URL}/api/cv/owned`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

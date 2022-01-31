@@ -1,12 +1,11 @@
 import { Footer, Header, Modal } from 'pwojtaszko-design';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { eraseCookie, getCookie } from '../../helpers';
-import { setOwnedCVsData, setPublishedCVsData } from '../../reducers/cvList/cvList';
-import { clearSession, setSessionData } from '../../reducers/session/session';
-import { fetchCurrentUser, fetchOwnedCVs, fetchPublishedCVs } from '../../restService/restService';
-import { getAuthToken, getFirstName, getIsTokenValid, getLastName } from '../../selectors/session';
+import { eraseCookie } from '../../helpers';
+import { clearSession, fetchCurrentUserData } from '../../store/session/sessionSlice';
+import { getFirstName, getIsTokenValid, getLastName } from '../../store/session/selector';
+import { fetchAllCvs } from '../../store/cvList/cvListSlice';
 import CVPage from '../CVPage';
 import Login from '../Login';
 import MainPage from '../MainPage';
@@ -14,36 +13,24 @@ import './App.scss';
 
 const App = () => {
   const [loginVisible, setLoginVisible] = useState(false);
-  const isLoggedIn = useSelector(getIsTokenValid);
-  const authToken = useSelector(getAuthToken);
-  const firstName = useSelector(getFirstName);
-  const lastName = useSelector(getLastName);
-  const dispatch = useDispatch();
+  const isLoggedIn = useAppSelector(getIsTokenValid);
+  const firstName = useAppSelector(getFirstName);
+  const lastName = useAppSelector(getLastName);
+  const dispatch = useAppDispatch();
 
   const handleTitleClick = () => {
     window.location.href = window.location.origin;
   }
 
   useEffect(() => {
-    const token = getCookie('token');
-    if (token) {
-      fetchCurrentUser(token).then(res =>
-        dispatch(setSessionData({ authToken: token, ...res }))
-      ).catch(e => {
-        console.log('Last user session expired.');
-        eraseCookie('token');
-        dispatch(clearSession());
-      });
-    }
-
-    fetchPublishedCVs().then(cvs => dispatch(setPublishedCVsData(cvs)));
+    dispatch(fetchCurrentUserData());
+    dispatch(fetchAllCvs());
   }, [dispatch])
-  
-  useEffect(() => {    
-    if (authToken) {
-      fetchOwnedCVs(authToken).then(cvs => dispatch(setOwnedCVsData(cvs)));
-    }
-  }, [authToken, dispatch])
+
+  useEffect(() => {
+    if (isLoggedIn)
+      dispatch(fetchCurrentUserData())
+  }, [isLoggedIn, dispatch])
 
   const handleLoginOpen = () => {
     setLoginVisible(true);

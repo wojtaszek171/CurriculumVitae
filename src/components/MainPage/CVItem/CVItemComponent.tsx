@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { CVItem } from '../../../reducers/cvList/types';
+import { CVItem } from '../../../store/cvList/types';
 import cvBg from '../../../assets/cv-icon.png';
 import './CVItemComponent.scss';
 

@@ -3,7 +3,7 @@ import photoJPG from './profile.jpg';
 import ImageEdit from './ImageEdit';
 import { useSelector } from 'react-redux';
 import SectionText from '../SectionText';
-import { getIsTokenValid } from '../../../selectors/session';
+import { getIsTokenValid } from '../../../store/session/selector';
 import './TopBar.scss';
 
 const Name: FC = () => {

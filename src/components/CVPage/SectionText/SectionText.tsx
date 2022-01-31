@@ -1,6 +1,6 @@
 import { FC, MouseEvent, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { getIsTokenValid } from '../../../selectors/session';
+import { getIsTokenValid } from '../../../store/session/selector';
 import EditableText from '../EditableText';
 import './SectionText.scss';
 

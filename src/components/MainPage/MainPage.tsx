@@ -1,14 +1,14 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { getOwnedCVsArray, getPublishedCVsArray } from '../../selectors/cvList';
-import { getIsTokenValid } from '../../selectors/session';
+import { getOwnedCvsArray, getPublishedCvsArray } from '../../store/cvList/selector';
+import { getIsTokenValid } from '../../store/session/selector';
 import AddCVButton from './AddCVButton';
 import CVItem from './CVItem';
 import './MainPage.scss';
 
 const MainPage: FC = () => {
-  const publishedCVs = useSelector(getPublishedCVsArray);
-  const ownedCVs = useSelector(getOwnedCVsArray);
+  const publishedCVs = useSelector(getPublishedCvsArray);
+  const ownedCVs = useSelector(getOwnedCvsArray);
   const isLoggedIn = useSelector(getIsTokenValid);
 
   return (

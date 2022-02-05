@@ -54,3 +54,44 @@ export const fetchCVs = (token: string) =>
     .catch(e => {
         throw e;
     });
+
+export const fetchCVById = (token: string, id: string | number) =>
+    fetch(`${HOST_URL}/api/cv/${id}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const createNotPublishedCV = (token: string) =>
+    fetch(`${HOST_URL}/api/cv/set`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+            isPublished: false
+        }),
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const removeCVById = (token: string, id: string | number) =>
+    fetch(`${HOST_URL}/api/cv/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });

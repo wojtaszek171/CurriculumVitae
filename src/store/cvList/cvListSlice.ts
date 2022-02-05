@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '..';
-import { fetchCVs } from '../../restService/restService';
+import { createNotPublishedCV, fetchCVById, fetchCVs, removeCVById } from '../../restService/restService';
 import { getAuthToken } from '../session/selector';
 import { CVItem, CVListState } from './types';
 
@@ -9,13 +9,37 @@ const initialState: CVListState = {
   list: {}
 };
 
+export const removeCV = createAsyncThunk(
+  'cvList/removeCV',
+  async ({ id }: { id: number }, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+
+    return removeCVById(authToken, id)
+      .then(() => ({ id }));
+  }
+)
+
 export const fetchAllCvs = createAsyncThunk(
   'cvList/fetchCvs',
   async (_, { getState, dispatch }) => {
     const state = getState() as RootState;
     const authToken = getAuthToken(state);
-    
+
     return fetchCVs(authToken);
+  }
+)
+
+export const createNewCV = createAsyncThunk(
+  'cvList/createCV',
+  async (_, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+
+    return createNotPublishedCV(authToken)
+      .then(({ id }) => {
+        return fetchCVById(authToken, id);
+      })
   }
 )
 
@@ -44,6 +68,17 @@ export const cvListSlice = createSlice({
       })
       .addCase(fetchAllCvs.rejected, (state, action) => {
         state.isLoading = false;
+      })
+      .addCase(createNewCV.fulfilled, (state, action) => {
+        state.list = {
+          ...state.list,
+          [action.payload.id]: {
+            ...action.payload
+          }
+        };
+      })
+      .addCase(removeCV.fulfilled, (state, action) => {
+        delete state.list[action.payload.id]
       })
   }
 });

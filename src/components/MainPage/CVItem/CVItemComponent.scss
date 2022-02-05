@@ -1,60 +1,65 @@
-.cv-item-component {
-    display: flex;
-    padding: 10px;
-    flex-direction: column;
-    border: 3px solid #a3a3a3;
+.cv-item-component-wrapper {
     margin-right: 10px;
-    font-size: 13px;
-    width: 150px;
-    height: 150px;
-    background-size: cover;
     position: relative;
-    cursor: pointer;
-
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-
-    img {
-        position: absolute;
-        opacity: 0.4;
-        width: 150px;
-        height: 150px;
-        background-color: #a3a3a3;
-    }
-
-    .cv-name {
-        z-index: 1;
-        margin-bottom: 10px;
-        padding: 10px 10px 0 10px;
-        font-weight: bold;
-        font-size: 1.5em;
-    }
-
-    .cv-profession {
-        z-index: 1;
-        padding: 0 10px;
-        font-size: 1.2em;
-        font-weight: 600;
-    }
 
     .remove-cv-button {
         z-index: 2;
         display: none;
+        color: transparent;
+        text-shadow: 0 0 0 #f37c7c;
+        padding: 4px;
+        font-size: 20px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        cursor: pointer;
     }
 
     &:hover {
         .remove-cv-button {
             display: block;
-            color: transparent;
-            text-shadow: 0 0 0 #f37c7c;
-            padding: 1px;
-            font-size: 20px;
+        }
+    }
+
+    .cv-item-component {
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        border: 3px solid #a3a3a3;
+        font-size: 13px;
+        width: 150px;
+        height: 150px;
+        background-size: cover;
+        position: relative;
+        cursor: pointer;
+
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -o-user-select: none;
+        user-select: none;
+
+        img {
             position: absolute;
-            right: 0;
-            top: 0;
+            opacity: 0.4;
+            width: 150px;
+            height: 150px;
+            background-color: #a3a3a3;
+        }
+
+        .cv-name {
+            z-index: 1;
+            margin-bottom: 10px;
+            padding: 10px 10px 0 10px;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        .cv-profession {
+            z-index: 1;
+            padding: 0 10px;
+            font-size: 1.2em;
+            font-weight: 600;
         }
     }
 

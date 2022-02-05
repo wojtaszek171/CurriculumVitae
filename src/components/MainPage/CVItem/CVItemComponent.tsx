@@ -1,45 +1,52 @@
 import { FC, useState } from 'react';
 import { CVItem } from '../../../store/cvList/types';
 import { removeCV } from '../../../store/cvList/cvListSlice';
-import { useAppDispatch } from '../../../store/hooks';
-import cvBg from '../../../assets/cv-icon.png';
-import './CVItemComponent.scss';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { Button, Modal } from 'pwojtaszko-design';
+import { getCurrentUserId } from '../../../store/session/selector';
+import cvBg from '../../../assets/cv-icon.png';
+import { useNavigate } from 'react-router-dom';
+import './CVItemComponent.scss';
 
 const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => {
   const dispatch = useAppDispatch();
+  const currentUserId = useAppSelector(getCurrentUserId);
   const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false);
+  const navigate = useNavigate();
 
   const handleCVItemClick = () => {
-
+    navigate(`/cv/${id}`, { replace: true });
   };
 
-  const handleCVRemove = () => {
+  const handleCVRemove = (e: MouseEvent) => {
+    e.stopPropagation();
     dispatch(removeCV({ id }));
   };
 
   return (
-    <div
-      className='cv-item-component'
-      onClick={handleCVItemClick}
-    >
-      <span
+    <div className='cv-item-component-wrapper'>
+      {currentUserId === userId && <span
         className='remove-cv-button'
         onClick={() => setShowRemoveConfirmation(true)}
       >
         🗑️
-      </span>
-      <img
-        alt='cv-bg'
-        src={cvBg}
-        draggable="false"
-      />
-      <span className='cv-name'>
-        Pawel Wojtaszko
-      </span>
-      <span className='cv-profession'>
-        Software Engineer
-      </span>
+      </span>}
+      <div
+        className='cv-item-component'
+        onClick={handleCVItemClick}
+      >
+        <img
+          alt='cv-bg'
+          src={cvBg}
+          draggable="false"
+        />
+        <span className='cv-name'>
+          Pawel Wojtaszko
+        </span>
+        <span className='cv-profession'>
+          Software Engineer
+        </span>
+      </div>
       <Modal
         onClose={() => setShowRemoveConfirmation(false)}
         show={showRemoveConfirmation}

@@ -6,21 +6,18 @@ import Employment from './Sections/Employment';
 import Languages from './Sections/Languages';
 import Profile from './Sections/Profile';
 import Skills from './Sections/Skills';
-import SectionWrapper from './SectionWrapper';
+import { useParams } from 'react-router-dom';
 import './CVPage.scss';
 
 const CVPage: FC = () => {
+  let { cvId } = useParams();
 
   return (
     <div className='cv-page-component'>
       <TopBar />
       <div className='content-wrapper'>
         <div className='side-content'>
-          <SectionWrapper
-            title='Contact'
-          >
-            <Contact />
-          </SectionWrapper>
+          <Contact />
           <Skills />
           <Languages />
         </div>

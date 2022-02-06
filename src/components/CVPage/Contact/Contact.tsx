@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import SectionText from '../SectionText';
+import SectionWrapper from '../SectionWrapper';
 import './Contact.scss';
 
 const Contact = () => {
@@ -20,38 +21,42 @@ const Contact = () => {
   }
 
   return (
-    <div className="contact-component">
-      <div className='contact-section'>
-        <span className='contact-section-title'>Address</span>
-        <span className='section-content'>
-          <SectionText
-            placeholder='Address'
-            text={address}
-            onSave={handleAddressSave}
-          />
-        </span>
+    <SectionWrapper
+      title='Contact'
+    >
+      <div className="contact-component">
+        <div className='contact-section'>
+          <span className='contact-section-title'>Address</span>
+          <span className='section-content'>
+            <SectionText
+              placeholder='Address'
+              text={address}
+              onSave={handleAddressSave}
+            />
+          </span>
+        </div>
+        <div className='contact-section'>
+          <span className='contact-section-title'>Phone</span>
+          <span className='section-content'>
+            <SectionText
+              placeholder='Phone'
+              text={phone}
+              onSave={handlePhoneSave}
+            />
+          </span>
+        </div>
+        <div className='contact-section'>
+          <span className='contact-section-title'>Email</span>
+          <span className='section-content'>
+            <SectionText
+              placeholder='Email'
+              text={email}
+              onSave={handleEmailSave}
+            />
+          </span>
+        </div>
       </div>
-      <div className='contact-section'>
-        <span className='contact-section-title'>Phone</span>
-        <span className='section-content'>
-          <SectionText
-            placeholder='Phone'
-            text={phone}
-            onSave={handlePhoneSave}
-          />
-        </span>
-      </div>
-      <div className='contact-section'>
-        <span className='contact-section-title'>Email</span>
-        <span className='section-content'>
-          <SectionText
-            placeholder='Email'
-            text={email}
-            onSave={handleEmailSave}
-          />
-        </span>
-      </div>
-    </div>
+    </SectionWrapper>
   );
 }
 

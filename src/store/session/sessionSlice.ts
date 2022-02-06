@@ -43,7 +43,7 @@ export const sessionSlice = createSlice({
       state.authToken = action.payload;
     },
     clearSession: (state) => {
-      state = initialState;
+      return initialState;
     }
   },
   extraReducers: (builder) => {
@@ -62,7 +62,8 @@ export const sessionSlice = createSlice({
       .addCase(loginUsingCredentials.fulfilled, (state, action) => {
         state = {
           ...state,
-          ...action.payload
+          ...action.payload,
+          authToken: action.payload.token
         };
 
         if(isDev()) {

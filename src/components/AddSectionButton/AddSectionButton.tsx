@@ -17,7 +17,7 @@ const AddSectionButton: FC<AddSectionButtonProps> = ({ onAddButton }) => {
     <div className='add-section-button-component'>
       <Button
         text='+'
-        handleClick={onAddButton}
+        onClick={onAddButton}
       />
     </div>
   );

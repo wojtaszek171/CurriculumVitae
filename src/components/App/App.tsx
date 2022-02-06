@@ -34,16 +34,16 @@ const App = () => {
 
   const handleLoginOpen = () => {
     setLoginVisible(true);
-  }
+  };
 
   const handleLoginClose = () => {
     setLoginVisible(false);
-  }
+  };
 
   const handleLogout = () => {
     eraseCookie('token');
     dispatch(clearSession());
-  }
+  };
 
   const dropdownConfig: any = [
     {
@@ -51,7 +51,7 @@ const App = () => {
         onClick: handleLogout,
         key: 'Logout'
     }
-  ]
+  ];
 
   return (
     <div className="main-container-component">
@@ -72,7 +72,7 @@ const App = () => {
           <Router>
             <Routes>
               <Route path="/" element={<MainPage />}/>
-              <Route path="/cv/:id" element={<CVPage />}/>
+              <Route path="/cv/:cvId" element={<CVPage />}/>
             </Routes>
           </Router>
         </div>

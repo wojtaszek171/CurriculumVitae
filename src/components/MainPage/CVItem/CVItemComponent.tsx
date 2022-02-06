@@ -56,13 +56,13 @@ const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => 
           <div className='buttons-wrapper'>
             <div>
               <Button
-                handleClick={() => setShowRemoveConfirmation(false)}
+                onClick={() => setShowRemoveConfirmation(false)}
                 text='No'
               />
             </div>
             <div className='button-red'>
               <Button
-                handleClick={handleCVRemove}
+                onClick={handleCVRemove}
                 text='Yes'
               />
             </div>

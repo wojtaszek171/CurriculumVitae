@@ -44,12 +44,18 @@ const SectionText: FC<TextAreaProps> = ({ text, editable, placeholder, onChange,
       onSave();
   };
 
+  const handleTextClick = () => {
+    if (isLoggedIn) {
+      setEditMode(true);
+    }
+  };
+
   const canEdit = (editable !== undefined) ? editable : isLoggedIn;
 
   return (
     <div
       className={'section-text-component'}
-      onClick={() => setEditMode(true)}
+      onClick={handleTextClick}
     >
       <EditableText
         text={editedText}

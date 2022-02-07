@@ -5,13 +5,14 @@ import './EditableText.scss';
 interface TextAreaProps {
   text: string;
   onChange: (newValue: string) => void;
-  editMode: boolean
+  editMode: boolean;
+  showPlaceholder: boolean;
   placeholder?: string;
   resizeable?: boolean;
   autoExpand?: boolean;
 }
 
-const TextArea: FC<TextAreaProps> = ({ text, placeholder, onChange, resizeable, autoExpand, editMode }) => {
+const TextArea: FC<TextAreaProps> = ({ text, placeholder, showPlaceholder, onChange, resizeable, autoExpand, editMode }) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const onTextAreaInput = useCallback(() => {
@@ -38,10 +39,9 @@ const TextArea: FC<TextAreaProps> = ({ text, placeholder, onChange, resizeable, 
           ref={textareaRef}
           onChange={handleTextareaChange}
           onInput={onTextAreaInput}
-        >
-          {text}
-        </textarea>
-        : <span className={`pwd-textarea-value${!text.length ? ' placeholder' : ''}`}>{text || `${placeholder} ✎`}</span>
+          value={text}
+        />
+        : <span className={`pwd-textarea-value${!text.length ? ' placeholder' : ''}`}>{text || (showPlaceholder && `${placeholder} ✎`)}</span>
       }
     </div>
   );

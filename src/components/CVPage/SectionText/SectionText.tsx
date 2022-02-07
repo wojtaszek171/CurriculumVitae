@@ -62,6 +62,7 @@ const SectionText: FC<TextAreaProps> = ({ text, editable, placeholder, onChange,
         onChange={handleEditChange}
         editMode={editMode}
         placeholder={placeholder}
+        showPlaceholder={isLoggedIn}
         autoExpand
       />
       {canEdit && <div className={`section-text-edit-buttons${editMode ? ' visible' : ''}`}>

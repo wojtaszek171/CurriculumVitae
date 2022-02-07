@@ -1,5 +1,5 @@
 export interface CVItem {
-    id: number,
+    id: string,
     userId: number,
     isPublished: boolean,
     createdAt: Date,
@@ -10,6 +10,6 @@ export interface CVItem {
 export interface CVListState {
     isLoading: boolean;
     list: {
-        [key: number]: CVItem;
+        [key: string]: CVItem;
     }
 }

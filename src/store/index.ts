@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import session from "./session/sessionSlice";
 import cvList from "./cvList/cvListSlice";
+import cvDetails from "./cvDetails/cvDetailsSlice";
 
 const reducer = {
     session,
-    cvList
+    cvList,
+    cvDetails
 };
 
 export const store = configureStore({

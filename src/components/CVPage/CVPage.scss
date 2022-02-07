@@ -4,6 +4,12 @@
     padding: 0 20px;
     margin: 0 auto;
 
+    .loader-wrapper {
+        display: flex;
+        height: 100%;
+        align-items: center;
+    }
+
     .content-wrapper {
         flex-wrap: wrap;
         display: flex;

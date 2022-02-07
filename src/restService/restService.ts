@@ -55,7 +55,7 @@ export const fetchCVs = (token: string) =>
         throw e;
     });
 
-export const fetchCVById = (token: string, id: string | number) =>
+export const fetchCVById = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -83,9 +83,69 @@ export const createNotPublishedCV = (token: string) =>
         throw e;
     });
 
-export const removeCVById = (token: string, id: string | number) =>
+export const removeCVById = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}`, {
         method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const fetchCVSkills = (token: string, id: string) =>
+    fetch(`${HOST_URL}/api/cv/${id}/skills`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const fetchCVEducation = (token: string, id: string) =>
+    fetch(`${HOST_URL}/api/cv/${id}/education`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const fetchCVEmployment = (token: string, id: string) =>
+    fetch(`${HOST_URL}/api/cv/${id}/employment`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const fetchCVLanguages = (token: string, id: string) =>
+    fetch(`${HOST_URL}/api/cv/${id}/languages`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const fetchCVUser = (token: string, id: string) =>
+    fetch(`${HOST_URL}/api/cv/${id}/user`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`

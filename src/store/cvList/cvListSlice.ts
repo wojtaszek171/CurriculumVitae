@@ -11,7 +11,7 @@ const initialState: CVListState = {
 
 export const removeCV = createAsyncThunk(
   'cvList/removeCV',
-  async ({ id }: { id: number }, { getState, dispatch }) => {
+  async ({ id }: { id: string }, { getState, dispatch }) => {
     const state = getState() as RootState;
     const authToken = getAuthToken(state);
 

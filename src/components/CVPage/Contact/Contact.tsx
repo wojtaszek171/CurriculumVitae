@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { FC } from 'react';
+import useCVTranslation from '../../../helpers/useCVTranslation';
+import { getCVDetailsUser } from '../../../store/cvDetails/selector';
+import { useAppSelector } from '../../../store/hooks';
 import SectionText from '../SectionText';
 import SectionWrapper from '../SectionWrapper';
 import './Contact.scss';
 
-const Contact = () => {
-  const [address, setAddress] = useState('My home address');
-  const [phone, setPhone] = useState('(123) 123 456 789');
-  const [email, setEmail] = useState('pawelwojtaszko@o2.pl');
+const Contact: FC = () => {
+  const { address, phone, email } = useAppSelector(getCVDetailsUser);
+
+  const tAddress = useCVTranslation(address);
 
   const handleAddressSave = () => {
 
@@ -19,7 +22,7 @@ const Contact = () => {
   const handleEmailSave = () => {
 
   }
-
+  
   return (
     <SectionWrapper
       title='Contact'
@@ -30,7 +33,7 @@ const Contact = () => {
           <span className='section-content'>
             <SectionText
               placeholder='Address'
-              text={address}
+              text={tAddress}
               onSave={handleAddressSave}
             />
           </span>
@@ -50,7 +53,7 @@ const Contact = () => {
           <span className='section-content'>
             <SectionText
               placeholder='Email'
-              text={email}
+              text={email.length ? email : ''}
               onSave={handleEmailSave}
             />
           </span>

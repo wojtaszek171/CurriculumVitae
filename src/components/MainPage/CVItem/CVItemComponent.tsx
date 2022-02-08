@@ -54,7 +54,7 @@ const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => 
           draggable="false"
         />
         <span className='cv-name'>
-          {userDetails?.name}
+          {userDetails?.name || 'CV'}
         </span>
         <span className='cv-profession'>
           {tPosition}

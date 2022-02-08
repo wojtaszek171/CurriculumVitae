@@ -2,8 +2,11 @@ import { getSelectedLanguage } from "../store/cvDetails/selector";
 import { StringValue } from "../store/cvDetails/types";
 import { useAppSelector } from "../store/hooks";
 
-export const useCVTranslation = (value: StringValue) => {
+export const useCVTranslation = (value: StringValue | undefined) => {
     const language = useAppSelector(getSelectedLanguage);
+
+    if (!value)
+        return '';
 
     const valCopy = { ...value };
     delete valCopy.id;

@@ -1,18 +1,31 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { CVItem } from '../../../store/cvList/types';
 import { removeCV } from '../../../store/cvList/cvListSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { Button, Modal } from 'pwojtaszko-design';
-import { getCurrentUserId } from '../../../store/session/selector';
+import { getAuthToken, getCurrentUserId } from '../../../store/session/selector';
 import cvBg from '../../../assets/cv-icon.png';
 import { useNavigate } from 'react-router-dom';
+import useCVTranslation from '../../../helpers/useCVTranslation';
+import { CVUser } from '../../../store/cvDetails/types';
+import { fetchCVUser } from '../../../restService/restService';
 import './CVItemComponent.scss';
 
 const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => {
   const dispatch = useAppDispatch();
+  const [userDetails, setUserDetails] = useState<CVUser>();
+  const tPosition = useCVTranslation(userDetails?.position);
+  const authToken = useAppSelector(getAuthToken);
+
+
   const currentUserId = useAppSelector(getCurrentUserId);
   const [showRemoveConfirmation, setShowRemoveConfirmation] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchCVUser(authToken, id)
+      .then(setUserDetails);
+  }, [authToken, id]);
 
   const handleCVItemClick = () => {
     navigate(`/cv/${id}`, { replace: true });
@@ -41,10 +54,10 @@ const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => 
           draggable="false"
         />
         <span className='cv-name'>
-          Pawel Wojtaszko
+          {userDetails?.name}
         </span>
         <span className='cv-profession'>
-          Software Engineer
+          {tPosition}
         </span>
       </div>
       <Modal

@@ -18,11 +18,11 @@ const TextArea: FC<TextAreaProps> = ({ text, placeholder, showPlaceholder, onCha
   const onTextAreaInput = useCallback(() => {
     const textareaCurrent = textareaRef.current;
     if (textareaCurrent && autoExpand) {
-      textareaCurrent.style.height = ""; /* Reset the height*/
-      textareaCurrent.style.height = textareaCurrent.scrollHeight + "px";
+      textareaCurrent.style.height = "5px"; /* Reset the height*/
+      textareaCurrent.style.height = `${textareaCurrent.scrollHeight}px`;
     }
   }, [autoExpand]);
-  
+
   useEffect(() => {
     onTextAreaInput();
   }, [editMode, onTextAreaInput]);
@@ -34,14 +34,18 @@ const TextArea: FC<TextAreaProps> = ({ text, placeholder, showPlaceholder, onCha
   return (
     <div className={`pwd-textarea-component${resizeable ? ' resizeable' : ''}`}>
       {editMode
-        ? <textarea
+        ?
+        <textarea
           placeholder={`${placeholder} ✎`}
           ref={textareaRef}
           onChange={handleTextareaChange}
           onInput={onTextAreaInput}
           value={text}
         />
-        : <span className={`pwd-textarea-value${!text?.length ? ' placeholder' : ''}`}>{text || (showPlaceholder && `${placeholder} ✎`)}</span>
+        : <span
+          className={`pwd-textarea-value${!text?.length ? ' placeholder' : ''}`}>
+            {text || (showPlaceholder && `${placeholder} ✎`)}
+          </span>
       }
     </div>
   );

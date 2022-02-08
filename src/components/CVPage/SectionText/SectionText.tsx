@@ -54,7 +54,7 @@ const SectionText: FC<TextAreaProps> = ({ text, editable, placeholder, onChange,
 
   return (
     <div
-      className={'section-text-component'}
+      className={`section-text-component${editMode ? ' edit' : ''}`}
       onClick={handleTextClick}
     >
       <EditableText

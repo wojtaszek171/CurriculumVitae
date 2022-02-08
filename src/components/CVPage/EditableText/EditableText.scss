@@ -3,9 +3,17 @@
     flex-direction: row;
 
     textarea {
+        border: none;
         font: inherit;
+        color: inherit;
         flex: 1;
         resize: none;
+        height: 5px;
+
+        &:focus-visible {
+            border: none;
+            outline: none;
+        }
     }
 
     &.resizeable {

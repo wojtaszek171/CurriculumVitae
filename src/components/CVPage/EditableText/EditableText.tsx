@@ -41,7 +41,7 @@ const TextArea: FC<TextAreaProps> = ({ text, placeholder, showPlaceholder, onCha
           onInput={onTextAreaInput}
           value={text}
         />
-        : <span className={`pwd-textarea-value${!text.length ? ' placeholder' : ''}`}>{text || (showPlaceholder && `${placeholder} ✎`)}</span>
+        : <span className={`pwd-textarea-value${!text?.length ? ' placeholder' : ''}`}>{text || (showPlaceholder && `${placeholder} ✎`)}</span>
       }
     </div>
   );

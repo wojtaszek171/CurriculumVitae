@@ -1,18 +1,16 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
+import useCVTranslation from '../../../helpers/useCVTranslation';
+import { LanguageItem } from '../../../store/cvDetails/types';
 import { getIsTokenValid } from '../../../store/session/selector';
 import SectionText from '../SectionText';
 import './SkillItem.scss';
 
 const RATING_MAX = 5;
 
-interface SkillItemProps {
-  title: string;
-  rating: 1 | 2 | 3 | 4 | 5;
-}
-
-const SkillItem: FC<SkillItemProps> = ({ title, rating }) => {
+const SkillItem: FC<LanguageItem> = ({ name, rating, details }) => {
   const isLoggedIn = useSelector(getIsTokenValid);
+  const tName = useCVTranslation(name);
 
   const handleSkillNameSave = () => {
 
@@ -27,7 +25,7 @@ const SkillItem: FC<SkillItemProps> = ({ title, rating }) => {
       <span className='skill-title'>
         <SectionText
           placeholder='Skill'
-          text={title}
+          text={tName}
           onSave={handleSkillNameSave}
         />
       </span>

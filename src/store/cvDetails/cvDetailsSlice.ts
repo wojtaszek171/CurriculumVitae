@@ -7,7 +7,7 @@ import { CvDetailsState } from './types';
 
 const initialState: CvDetailsState = {
   isLoading: false,
-  language: null,
+  language: 'en-us',
   cvId: null,
   list: {}
 };

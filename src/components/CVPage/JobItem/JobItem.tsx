@@ -1,21 +1,26 @@
 import { FC } from 'react';
+import useCVTranslation from '../../../helpers/useCVTranslation';
+import { getSelectedLanguage } from '../../../store/cvDetails/selector';
+import { EmploymentItem } from '../../../store/cvDetails/types';
+import { useAppSelector } from '../../../store/hooks';
 import SectionText from '../SectionText';
 import './JobItem.scss';
 
-interface JobItemProps {
-  title: string;
-  location: string;
-  timeFrame: string;
-  details: string;
-};
-
-const JobItem: FC<JobItemProps> = ({ title, location, timeFrame, details }) => {
+const JobItem: FC<EmploymentItem> = ({ company, position, location, startDate, endDate, details }) => {
+  const locale = useAppSelector(getSelectedLanguage);
+  const tPosition = useCVTranslation(position);
+  const tLocation = useCVTranslation(location);
+  const tDetails = useCVTranslation(details);
 
   const handleTitleSave = () => {
 
   }
 
   const handleLocationSave = () => {
+
+  }
+
+  const handleCompanySave = () => {
 
   }
 
@@ -27,20 +32,28 @@ const JobItem: FC<JobItemProps> = ({ title, location, timeFrame, details }) => {
 
   }
 
+  const dateString = (new Date(startDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) + ' - ' + (endDate ? (new Date(endDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) : 'Present')
+
   return (
     <div className='job-component'>
       <div className='job-header'>
         <span className='job-title'>
           <SectionText
             placeholder='Profession'
-            text={title}
+            text={tPosition}
             onSave={handleTitleSave}
+          />
+          {!!(tPosition.length && company.length) && <span>,&nbsp;</span>}
+          <SectionText
+            placeholder='Location'
+            text={company}
+            onSave={handleCompanySave}
           />
         </span>
         <span className='job-location'>
           <SectionText
             placeholder='Office location'
-            text={location}
+            text={tLocation}
             onSave={handleLocationSave}
           />
         </span>
@@ -48,14 +61,15 @@ const JobItem: FC<JobItemProps> = ({ title, location, timeFrame, details }) => {
       <span className='time-frame'>
         <SectionText
           placeholder='Time Frame'
-          text={timeFrame}
+          text={dateString}
           onSave={handleTimeFrameSave}
+          editable={false}
         />
       </span>
       <div className='job-details'>
         <SectionText
           placeholder='Details'
-          text={details}
+          text={tDetails}
           onSave={handleDetailsSave}
         />
       </div>

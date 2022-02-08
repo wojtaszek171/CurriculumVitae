@@ -7,6 +7,7 @@
         display: flex;
 
         .education-title {
+            display: flex;
             font-size: 1.1rem;
             font-weight: 500;
             flex-grow: 1;
@@ -14,5 +15,8 @@
     }
     .time-frame {
         margin-top: 5px;
+    }
+    .education-details {
+        padding: 20px 0 0 20px;
     }
 }

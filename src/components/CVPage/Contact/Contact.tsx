@@ -53,7 +53,7 @@ const Contact: FC = () => {
           <span className='section-content'>
             <SectionText
               placeholder='Email'
-              text={email.length ? email : ''}
+              text={email?.length ? email : ''}
               onSave={handleEmailSave}
             />
           </span>

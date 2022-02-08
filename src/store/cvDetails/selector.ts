@@ -39,3 +39,63 @@ export const getCVDetailsUser = createSelector(
         return cvDetailsList[cvId]?.user;
     }
 );
+
+export const getCVDetailsEducation = createSelector(
+    [
+        getCVDetailsList,
+        getSelectedCVId
+    ],
+    (
+        cvDetailsList,
+        cvId
+    ) => {
+        if (!cvId || !cvDetailsList[cvId]?.education) return {};
+
+        return cvDetailsList[cvId]?.education;
+    }
+);
+
+export const getCVDetailsEmployment = createSelector(
+    [
+        getCVDetailsList,
+        getSelectedCVId
+    ],
+    (
+        cvDetailsList,
+        cvId
+    ) => {
+        if (!cvId || !cvDetailsList[cvId]?.employment) return {};
+
+        return cvDetailsList[cvId]?.employment;
+    }
+);
+
+export const getCVDetailsLanguages = createSelector(
+    [
+        getCVDetailsList,
+        getSelectedCVId
+    ],
+    (
+        cvDetailsList,
+        cvId
+    ) => {
+        if (!cvId || !cvDetailsList[cvId]?.languages) return {};
+
+        return cvDetailsList[cvId]?.languages;
+    }
+);
+
+export const getCVDetailsSkills = createSelector(
+    [
+        getCVDetailsList,
+        getSelectedCVId
+    ],
+    (
+        cvDetailsList,
+        cvId
+    ) => {
+        if (!cvId || !cvDetailsList[cvId]?.skills) return {};
+
+        return cvDetailsList[cvId]?.skills;
+    }
+);

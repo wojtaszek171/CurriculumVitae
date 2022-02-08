@@ -10,7 +10,7 @@ export interface CVDetails {
 export interface CvDetailsState {
     isLoading: boolean;
     cvId: string | null;
-    language: string | null;
+    language: string;
     list: {
         [key: number]: CVDetails;
     }

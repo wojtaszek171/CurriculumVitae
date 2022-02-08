@@ -4,14 +4,18 @@ import ImageEdit from './ImageEdit';
 import { useSelector } from 'react-redux';
 import SectionText from '../SectionText';
 import { getIsTokenValid } from '../../../store/session/selector';
+import { useAppSelector } from '../../../store/hooks';
+import { getCVDetailsUser } from '../../../store/cvDetails/selector';
 import './TopBar.scss';
+import useCVTranslation from '../../../helpers/useCVTranslation';
 
 const Name: FC = () => {
   const isLoggedIn = useSelector(getIsTokenValid);
+  const userDetails = useAppSelector(getCVDetailsUser);
+
+  const tProfession = useCVTranslation(userDetails.position);
 
   const [photo, setPhoto] = useState<string | undefined>(undefined);
-  const name = 'PAWEŁ\nWOJTASZKO';
-  const profession = 'Software Engineer'
 
   const fileToDataUri = (file: any) => new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -53,7 +57,7 @@ const Name: FC = () => {
       <div className='name-wrapper'>
         <span className='person-name'>
           <SectionText
-            text={name}
+            text={userDetails.name}
             placeholder='Name'
             onSave={handleNameSave}
           />
@@ -61,7 +65,7 @@ const Name: FC = () => {
         <span className='person-profession'>
           <SectionText
             placeholder='Profession'
-            text={profession}
+            text={tProfession}
             onSave={handleProfessionSave}
           />
         </span>

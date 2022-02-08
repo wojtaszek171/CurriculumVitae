@@ -2,17 +2,12 @@ import { FC } from 'react';
 import SectionWrapper from '../../SectionWrapper';
 import AddSectionButton from '../../../AddSectionButton';
 import EducationItem from '../../EducationItem';
+import { useSelector } from 'react-redux';
+import { getCVDetailsEducation } from '../../../../store/cvDetails/selector';
+import { EducationItem as EducationItemType } from '../../../../store/cvDetails/types';
 
 const Education: FC = () => {
-
-  const educationItems = [
-    {
-      id: 1,
-      title: `Master's degree of Computer Science, Lublin University of Technology`,
-      location: 'Lublin, Poland',
-      timeFrame: '2014 - 2019'
-    }
-  ]
+  const educationItems = useSelector(getCVDetailsEducation);
 
   const addSection = () => {
     
@@ -23,7 +18,7 @@ const Education: FC = () => {
       title='Education'
     >
       <>
-        {educationItems.map(item => <EducationItem key={item.id} {...item}/>)}
+        {educationItems.map((item: EducationItemType) => <EducationItem key={item.id} {...item}/>)}
         <AddSectionButton onAddButton={addSection}/>
       </>
     </SectionWrapper>

@@ -25,12 +25,7 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchCurrentUserData());
     dispatch(fetchAllCvs());
-  }, [dispatch])
-
-  useEffect(() => {
-    if (isLoggedIn)
-      dispatch(fetchCurrentUserData())
-  }, [isLoggedIn, dispatch])
+  }, [dispatch, isLoggedIn])
 
   const handleLoginOpen = () => {
     setLoginVisible(true);

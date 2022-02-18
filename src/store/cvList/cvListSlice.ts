@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '..';
-import { createNotPublishedCV, fetchCVById, fetchCVs, removeCVById } from '../../restService/restService';
+import restService from '../../restService/restService';
 import { getAuthToken } from '../session/selector';
 import { CVItem, CVListState } from './types';
 
@@ -15,7 +15,7 @@ export const removeCV = createAsyncThunk(
     const state = getState() as RootState;
     const authToken = getAuthToken(state);
 
-    return removeCVById(authToken, id)
+    return restService.removeCVById(authToken, id)
       .then(() => ({ id }));
   }
 )
@@ -26,7 +26,7 @@ export const fetchAllCvs = createAsyncThunk(
     const state = getState() as RootState;
     const authToken = getAuthToken(state);
 
-    return fetchCVs(authToken);
+    return restService.fetchCVs(authToken);
   }
 )
 
@@ -36,9 +36,9 @@ export const createNewCV = createAsyncThunk(
     const state = getState() as RootState;
     const authToken = getAuthToken(state);
 
-    return createNotPublishedCV(authToken)
+    return restService.createNotPublishedCV(authToken)
       .then(({ id }) => {
-        return fetchCVById(authToken, id);
+        return restService.fetchCVById(authToken, id);
       })
   }
 )

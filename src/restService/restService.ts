@@ -1,4 +1,4 @@
-import { EducationItem, EmploymentItem, LanguageItem, SkillItem } from "../store/cvDetails/types";
+import { CVUser, EducationItem, EmploymentItem, LanguageItem, SkillItem } from "../store/cvDetails/types";
 
 const { REACT_APP_API_HOST, REACT_APP_API_PORT, REACT_APP_API_PATH } = window;
 
@@ -16,7 +16,7 @@ const requestStatus = async (response: Response) => {
     }
 }
 
-export const authenticateUser = (username: string, password: string) => {
+const authenticateUser = (username: string, password: string) => {
     return fetch(`${HOST_URL}/api/users/authenticate`, {
             method: 'POST',
             headers: {
@@ -33,7 +33,7 @@ export const authenticateUser = (username: string, password: string) => {
         });
 }
 
-export const fetchCurrentUser = (token: string) =>
+const fetchCurrentUser = (token: string) =>
     fetch(`${HOST_URL}/api/users/current`, {
         headers: {
             'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export const fetchCurrentUser = (token: string) =>
         throw e;
     });
 
-export const fetchCVs = (token: string) =>
+const fetchCVs = (token: string) =>
     fetch(`${HOST_URL}/api/cv`, {
         headers: {
             'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export const fetchCVs = (token: string) =>
         throw e;
     });
 
-export const fetchCVById = (token: string, id: string) =>
+const fetchCVById = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}`, {
         headers: {
             'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export const fetchCVById = (token: string, id: string) =>
         throw e;
     });
 
-export const createNotPublishedCV = (token: string) =>
+const createNotPublishedCV = (token: string) =>
     fetch(`${HOST_URL}/api/cv/set`, {
         method: 'POST',
         headers: {
@@ -85,7 +85,7 @@ export const createNotPublishedCV = (token: string) =>
         throw e;
     });
 
-export const removeCVById = (token: string, id: string) =>
+const removeCVById = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}`, {
         method: 'DELETE',
         headers: {
@@ -98,7 +98,7 @@ export const removeCVById = (token: string, id: string) =>
         throw e;
     });
 
-export const fetchCVSkills = (token: string, id: string) =>
+const fetchCVSkills = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/skills`, {
         headers: {
             'Content-Type': 'application/json',
@@ -110,7 +110,7 @@ export const fetchCVSkills = (token: string, id: string) =>
         throw e;
     });
 
-export const createSkillItem = (token: string, id: string, skillBody: SkillItem) =>
+const createSkillItem = (token: string, id: string, skillBody: SkillItem) =>
     fetch(`${HOST_URL}/api/cv/${id}/skills/set`, {
         method: 'POST',
         headers: {
@@ -124,7 +124,7 @@ export const createSkillItem = (token: string, id: string, skillBody: SkillItem)
         throw e;
     });
 
-export const fetchCVEducation = (token: string, id: string) =>
+const fetchCVEducation = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/education`, {
         headers: {
             'Content-Type': 'application/json',
@@ -136,7 +136,7 @@ export const fetchCVEducation = (token: string, id: string) =>
         throw e;
     });
 
-export const createEducationItem = (token: string, id: string, educationBody: EducationItem) =>
+const createEducationItem = (token: string, id: string, educationBody: EducationItem) =>
     fetch(`${HOST_URL}/api/cv/${id}/education/set`, {
         method: 'POST',
         headers: {
@@ -150,7 +150,7 @@ export const createEducationItem = (token: string, id: string, educationBody: Ed
         throw e;
     });
 
-export const updateEducationItem = (token: string, id: string, eduId: string, educationBody: EducationItem) =>
+const updateEducationItem = (token: string, id: string, eduId: string, educationBody: EducationItem) =>
     fetch(`${HOST_URL}/api/cv/${id}/education${eduId}`, {
         method: 'PUT',
         headers: {
@@ -164,7 +164,7 @@ export const updateEducationItem = (token: string, id: string, eduId: string, ed
         throw e;
     });
 
-export const fetchCVEmployment = (token: string, id: string) =>
+const fetchCVEmployment = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/employment`, {
         headers: {
             'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ export const fetchCVEmployment = (token: string, id: string) =>
         throw e;
     });
 
-export const createEmploymentItem = (token: string, id: string, employmentBody: EmploymentItem) =>
+const createEmploymentItem = (token: string, id: string, employmentBody: EmploymentItem) =>
     fetch(`${HOST_URL}/api/cv/${id}/employment/set`, {
         method: 'POST',
         headers: {
@@ -190,7 +190,7 @@ export const createEmploymentItem = (token: string, id: string, employmentBody: 
         throw e;
     });
 
-export const fetchCVLanguages = (token: string, id: string) =>
+const fetchCVLanguages = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/languages`, {
         headers: {
             'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export const fetchCVLanguages = (token: string, id: string) =>
         throw e;
     });
 
-export const createLanguageItem = (token: string, id: string, languageBody: LanguageItem) =>
+const createLanguageItem = (token: string, id: string, languageBody: LanguageItem) =>
     fetch(`${HOST_URL}/api/cv/${id}/languages/set`, {
         method: 'POST',
         headers: {
@@ -216,7 +216,7 @@ export const createLanguageItem = (token: string, id: string, languageBody: Lang
         throw e;
     });
 
-export const fetchCVUser = (token: string, id: string) =>
+const fetchCVUser = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/user`, {
         headers: {
             'Content-Type': 'application/json',
@@ -227,3 +227,39 @@ export const fetchCVUser = (token: string, id: string) =>
     .catch(e => {
         throw e;
     });
+
+const updateCVUser = (token: string, id: string, body: Partial<CVUser>) =>
+    fetch(`${HOST_URL}/api/cv/${id}/user`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(body),
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+export const restService = {
+    authenticateUser,
+    fetchCurrentUser,
+    fetchCVs,
+    fetchCVById,
+    createNotPublishedCV,
+    removeCVById,
+    fetchCVSkills,
+    createSkillItem,
+    fetchCVEducation,
+    createEducationItem,
+    updateEducationItem,
+    fetchCVEmployment,
+    createEmploymentItem,
+    fetchCVLanguages,
+    createLanguageItem,
+    fetchCVUser,
+    updateCVUser
+};
+
+export default restService;

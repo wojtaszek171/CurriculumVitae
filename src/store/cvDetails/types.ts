@@ -82,6 +82,6 @@ export interface CVUser {
 
 export interface StringValue {
     id?:    number;
-    en_us: string;
-    pl_pl: string;
+    'en-us'?: string;
+    'pl-pl'?: string;
 }

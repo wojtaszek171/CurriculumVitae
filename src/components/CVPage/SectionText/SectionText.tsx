@@ -8,7 +8,7 @@ interface TextAreaProps {
   text: string;
   onChange?: (newValue: string) => void;
   editable?: boolean;
-  onSave?: () => void;
+  onSave?: (text: string) => void;
   onRemove?: () => void;
   placeholder?: string;
   editButtonsAlwaysVisible?: boolean;
@@ -41,7 +41,7 @@ const SectionText: FC<TextAreaProps> = ({ text, editable, placeholder, onChange,
     setEditMode(false);
 
     if (onSave)
-      onSave();
+      onSave(editedText);
   };
 
   const handleTextClick = () => {

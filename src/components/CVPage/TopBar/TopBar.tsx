@@ -4,14 +4,17 @@ import ImageEdit from './ImageEdit';
 import { useSelector } from 'react-redux';
 import SectionText from '../SectionText';
 import { getIsTokenValid } from '../../../store/session/selector';
-import { useAppSelector } from '../../../store/hooks';
-import { getCVDetailsUser } from '../../../store/cvDetails/selector';
-import './TopBar.scss';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { getCVDetailsUser, getSelectedLanguage } from '../../../store/cvDetails/selector';
 import useCVTranslation from '../../../helpers/useCVTranslation';
+import { updateUserData } from '../../../store/cvDetails/cvDetailsSlice';
+import './TopBar.scss';
 
 const Name: FC = () => {
   const isLoggedIn = useSelector(getIsTokenValid);
   const userDetails = useAppSelector(getCVDetailsUser);
+  const locale = useAppSelector(getSelectedLanguage);
+  const dispatch = useAppDispatch();
 
   const tProfession = useCVTranslation(userDetails.position);
 
@@ -40,12 +43,12 @@ const Name: FC = () => {
     }
   }, []);
 
-  const handleNameSave = () => {
-
+  const handleNameSave = (name: string) => {
+    dispatch(updateUserData({ name }));
   };
 
-  const handleProfessionSave = () => {
-
+  const handleProfessionSave = (position: string) => {
+    dispatch(updateUserData({ position: { [locale]: position } }));
   };
 
   return (

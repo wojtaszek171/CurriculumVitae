@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '..';
-import { createEducationItem, createEmploymentItem, createLanguageItem, createSkillItem, fetchCVEducation, fetchCVEmployment, fetchCVLanguages, fetchCVSkills, fetchCVUser } from '../../restService/restService';
+import restService from '../../restService/restService';
 import { getAuthToken } from '../session/selector';
 import { getSelectedCVId } from './selector';
-import { CvDetailsState, EducationItem, EmploymentItem, LanguageItem, SkillItem } from './types';
+import { CvDetailsState, CVUser, EducationItem, EmploymentItem, LanguageItem, SkillItem } from './types';
 
 const initialState: CvDetailsState = {
   isLoading: false,
@@ -24,11 +24,11 @@ export const fetchCvDetails = createAsyncThunk(
     }
 
     try {
-      const cvSkills = await fetchCVSkills(authToken, cvId);
-      const cvEducation = await fetchCVEducation(authToken, cvId);
-      const cvEmployment = await fetchCVEmployment(authToken, cvId);
-      const cvLanguages = await fetchCVLanguages(authToken, cvId);
-      const cvUser = await fetchCVUser(authToken, cvId);
+      const cvSkills = await restService.fetchCVSkills(authToken, cvId);
+      const cvEducation = await restService.fetchCVEducation(authToken, cvId);
+      const cvEmployment = await restService.fetchCVEmployment(authToken, cvId);
+      const cvLanguages = await restService.fetchCVLanguages(authToken, cvId);
+      const cvUser = await restService.fetchCVUser(authToken, cvId);
 
       let languages = {...cvUser.address};
       delete languages.id;
@@ -51,6 +51,31 @@ export const fetchCvDetails = createAsyncThunk(
   }
 )
 
+export const updateUserData = createAsyncThunk(
+  'cvDetails/updateUserData',
+  async (body: Partial<CVUser>, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.updateCVUser(authToken, cvId, body);
+      const cvUser = await restService.fetchCVUser(authToken, cvId);
+
+      return {
+        cvId,
+        cvUser
+      };
+    } catch (e) {
+      throw new Error('Failed to update user data');
+    }
+  }
+)
+
 export const createEmptyEducation = createAsyncThunk(
   'cvDetails/createEmptyEducation',
   async (_, { getState, dispatch }) => {
@@ -63,8 +88,8 @@ export const createEmptyEducation = createAsyncThunk(
     }
 
     try {
-      await createEducationItem(authToken, cvId, {} as EducationItem);
-      const cvEducation = await fetchCVEducation(authToken, cvId);
+      await restService.createEducationItem(authToken, cvId, {} as EducationItem);
+      const cvEducation = await restService.fetchCVEducation(authToken, cvId);
 
       return {
         cvId,
@@ -88,8 +113,8 @@ export const createEmptyEmployment = createAsyncThunk(
     }
 
     try {
-      await createEmploymentItem(authToken, cvId, {} as EmploymentItem);
-      const cvEmployment = await fetchCVEmployment(authToken, cvId);
+      await restService.createEmploymentItem(authToken, cvId, {} as EmploymentItem);
+      const cvEmployment = await restService.fetchCVEmployment(authToken, cvId);
 
       return {
         cvId,
@@ -113,8 +138,8 @@ export const createEmptyLanguage = createAsyncThunk(
     }
 
     try {
-      await createLanguageItem(authToken, cvId, {} as LanguageItem);
-      const cvLanguages = await fetchCVLanguages(authToken, cvId);
+      await restService.createLanguageItem(authToken, cvId, {} as LanguageItem);
+      const cvLanguages = await restService.fetchCVLanguages(authToken, cvId);
 
       return {
         cvId,
@@ -138,8 +163,8 @@ export const createEmptySkill = createAsyncThunk(
     }
 
     try {
-      await createSkillItem(authToken, cvId, {} as SkillItem);
-      const cvSkills = await fetchCVSkills(authToken, cvId);
+      await restService.createSkillItem(authToken, cvId, {} as SkillItem);
+      const cvSkills = await restService.fetchCVSkills(authToken, cvId);
 
       return {
         cvId,
@@ -195,6 +220,11 @@ export const cvDetailsSlice = createSlice({
         const { payload: { cvSkills, cvId } } = action;
         
         state.list[cvId].skills = [...cvSkills];
+      })
+      .addCase(updateUserData.fulfilled, (state, action) => {
+        const { payload: { cvUser, cvId } } = action;
+
+        state.list[cvId].user = cvUser;
       });
   }
 });

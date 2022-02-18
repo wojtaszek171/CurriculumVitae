@@ -8,7 +8,7 @@ import cvBg from '../../../assets/cv-icon.png';
 import { useNavigate } from 'react-router-dom';
 import useCVTranslation from '../../../helpers/useCVTranslation';
 import { CVUser } from '../../../store/cvDetails/types';
-import { fetchCVUser } from '../../../restService/restService';
+import restService from '../../../restService/restService';
 import './CVItemComponent.scss';
 
 const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => {
@@ -23,7 +23,7 @@ const CVItemComponent: FC<CVItem> = ({ id, userId, isPublished, updatedAt }) => 
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchCVUser(authToken, id)
+    restService.fetchCVUser(authToken, id)
       .then(setUserDetails);
   }, [authToken, id]);
 

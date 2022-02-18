@@ -1,7 +1,7 @@
 import { SessionState } from "./types";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authenticateUser, fetchCurrentUser } from "../../restService/restService";
 import { eraseCookie, getCookie, isDev } from "../../helpers";
+import restService from "../../restService/restService";
 
 const initialState: SessionState = {
   id: 0,
@@ -17,7 +17,7 @@ export const fetchCurrentUserData = createAsyncThunk(
     const token = getCookie('token');
     if (token)
       dispatch(setToken(token));
-      return fetchCurrentUser(token);
+      return restService.fetchCurrentUser(token);
   }
 )
 
@@ -26,7 +26,7 @@ export const loginUsingCredentials = createAsyncThunk(
   async (
     { login, password }: { login: string, password: string },
     { getState, dispatch }) =>
-      authenticateUser(login, password)
+      restService.authenticateUser(login, password)
 )
 
 export const sessionSlice = createSlice({

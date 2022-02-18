@@ -1,26 +1,29 @@
 import { FC } from 'react';
 import useCVTranslation from '../../../helpers/useCVTranslation';
-import { getCVDetailsUser } from '../../../store/cvDetails/selector';
-import { useAppSelector } from '../../../store/hooks';
+import { updateUserData } from '../../../store/cvDetails/cvDetailsSlice';
+import { getCVDetailsUser, getSelectedLanguage } from '../../../store/cvDetails/selector';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import SectionText from '../SectionText';
 import SectionWrapper from '../SectionWrapper';
 import './Contact.scss';
 
 const Contact: FC = () => {
   const { address, phone, email } = useAppSelector(getCVDetailsUser);
+  const locale = useAppSelector(getSelectedLanguage);
+  const dispatch = useAppDispatch();
 
   const tAddress = useCVTranslation(address);
 
-  const handleAddressSave = () => {
-
+  const handleAddressSave = (address: string) => {
+    dispatch(updateUserData({ address: { [locale]: address } }));
   }
 
-  const handlePhoneSave = () => {
-
+  const handlePhoneSave = (phone: string) => {
+    dispatch(updateUserData({ phone }));
   }
 
-  const handleEmailSave = () => {
-
+  const handleEmailSave = (email: string) => {
+    dispatch(updateUserData({ email }));
   }
   
   return (

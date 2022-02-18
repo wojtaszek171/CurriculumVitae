@@ -3,14 +3,16 @@ import SectionWrapper from '../../SectionWrapper';
 import AddSectionButton from '../../../AddSectionButton';
 import SkillItem from '../../SkillItem';
 import { getCVDetailsSkills } from '../../../../store/cvDetails/selector';
-import { useAppSelector } from '../../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { SkillItem as SkillItemType } from '../../../../store/cvDetails/types';
+import { createEmptySkill } from '../../../../store/cvDetails/cvDetailsSlice';
 
 const Skills: FC = () => {
   const skillsItems = useAppSelector(getCVDetailsSkills);
+  const dispatch = useAppDispatch();
 
   const addSection = () => {
-    
+    dispatch(createEmptySkill());
   };
 
   return (

@@ -1,20 +1,27 @@
 .cv-page-component {
+    width: 100%;
     flex-direction: column;
     max-width: 1300px;
     padding: 0 20px;
     margin: 0 auto;
+    flex: 1;
+    display: flex;
 
     .loader-wrapper {
         display: flex;
         height: 100%;
         align-items: center;
+        
+        .lds-ring {
+            margin: 0 auto;
+        }
     }
 
     .content-wrapper {
+        flex: 1;
         flex-wrap: wrap;
         display: flex;
         flex-direction: row;
-        height: 100%;
         width: 100%;
         margin-bottom: 40px;
 

@@ -1,12 +1,15 @@
 import { FC } from 'react';
 import useCVTranslation from '../../../helpers/useCVTranslation';
+import { deleteEducationItem } from '../../../store/cvDetails/cvDetailsSlice';
 import { getSelectedLanguage } from '../../../store/cvDetails/selector';
 import { EducationItem as EducationItemType } from '../../../store/cvDetails/types';
-import { useAppSelector } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import DeleteItemButton from '../DeleteItemButton';
 import SectionText from '../SectionText';
 import './EducationItem.scss';
 
-const EducationItem: FC<EducationItemType> = ({ school, location, degree, details, startDate, endDate }) => {
+const EducationItem: FC<EducationItemType> = ({ id, school, location, degree, details, startDate, endDate }) => {
+  const dispatch = useAppDispatch();
   const locale = useAppSelector(getSelectedLanguage);
   const tSchool = useCVTranslation(school);
   const tLocation = useCVTranslation(location);
@@ -29,6 +32,10 @@ const EducationItem: FC<EducationItemType> = ({ school, location, degree, detail
 
   };
 
+  const handleElementDelete = () => {
+    dispatch(deleteEducationItem(id))
+  };
+
   const dateString = (new Date(startDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) + ' - ' + (endDate ? (new Date(endDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) : 'Present')
 
   return (
@@ -42,8 +49,8 @@ const EducationItem: FC<EducationItemType> = ({ school, location, degree, detail
           />
           {!!(tDegree.length && tSchool.length) && <span>,&nbsp;</span>}
           <SectionText
-            placeholder='School'
-            text={tSchool}
+            placeholder='Degree'
+            text={tDegree}
             onSave={handleJobTitleSave}
           />
         </span>
@@ -69,6 +76,7 @@ const EducationItem: FC<EducationItemType> = ({ school, location, degree, detail
           onSave={handleJobDetailsSave}
         />
       </div>
+      <DeleteItemButton onDeleteClick={handleElementDelete}/>
     </div>
   );
 }

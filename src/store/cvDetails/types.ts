@@ -17,7 +17,7 @@ export interface CvDetailsState {
 }
 
 export interface SkillItem {
-    id:        number;
+    id:        string;
     cvId:      number;
     rating:    number;
     nameId:    number;
@@ -27,7 +27,7 @@ export interface SkillItem {
 }
 
 export interface EducationItem {
-    id:         number;
+    id:         string;
     cvId:       number;
     startDate:  Date;
     endDate:    Date;
@@ -42,7 +42,7 @@ export interface EducationItem {
 }
 
 export interface EmploymentItem {
-    id:         number;
+    id:         string;
     cvId:       number;
     company:    string;
     startDate:  Date;
@@ -56,7 +56,7 @@ export interface EmploymentItem {
 }
 
 export interface LanguageItem {
-    id:        number;
+    id:        string;
     cvId:      number;
     rating:    number;
     nameId:    number;
@@ -66,7 +66,7 @@ export interface LanguageItem {
 }
 
 export interface CVUser {
-    id:             number;
+    id:             string;
     cvId:           number;
     name:           string;
     phone:          string;
@@ -81,7 +81,7 @@ export interface CVUser {
 }
 
 export interface StringValue {
-    id?:    number;
+    id?:    string;
     'en-us'?: string;
     'pl-pl'?: string;
 }

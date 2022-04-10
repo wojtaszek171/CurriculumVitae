@@ -5,7 +5,7 @@ import SkillItem from '../../SkillItem';
 import { getCVDetailsSkills } from '../../../../store/cvDetails/selector';
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
 import { SkillItem as SkillItemType } from '../../../../store/cvDetails/types';
-import { createEmptySkill } from '../../../../store/cvDetails/cvDetailsSlice';
+import { createEmptySkill, deleteSkillItem } from '../../../../store/cvDetails/cvDetailsSlice';
 
 const Skills: FC = () => {
   const skillsItems = useAppSelector(getCVDetailsSkills);
@@ -15,6 +15,10 @@ const Skills: FC = () => {
     dispatch(createEmptySkill());
   };
 
+  const onDelete = (id: string) => {
+    dispatch(deleteSkillItem(id))
+  }
+
   return (
     <SectionWrapper
       title='Skills'
@@ -23,6 +27,7 @@ const Skills: FC = () => {
         {skillsItems.map((item: SkillItemType) =>
           <SkillItem
             key={item.id}
+            onDelete={onDelete}
             {...item}
           />
         )}

@@ -3,6 +3,7 @@ import useCVTranslation from '../../../helpers/useCVTranslation';
 import { getSelectedLanguage } from '../../../store/cvDetails/selector';
 import { EmploymentItem } from '../../../store/cvDetails/types';
 import { useAppSelector } from '../../../store/hooks';
+import DeleteItemButton from '../DeleteItemButton';
 import SectionText from '../SectionText';
 import './JobItem.scss';
 
@@ -29,6 +30,10 @@ const JobItem: FC<EmploymentItem> = ({ company, position, location, startDate, e
   }
 
   const handleDetailsSave = () => {
+
+  }
+
+  const handleElementDelete = () => {
 
   }
 
@@ -73,6 +78,7 @@ const JobItem: FC<EmploymentItem> = ({ company, position, location, startDate, e
           onSave={handleDetailsSave}
         />
       </div>
+      <DeleteItemButton onDeleteClick={handleElementDelete}/>
     </div>
   );
 }

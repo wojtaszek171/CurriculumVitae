@@ -124,6 +124,19 @@ const createSkillItem = (token: string, id: string, skillBody: SkillItem) =>
         throw e;
     });
 
+const deleteSkillItem = (token: string, cvId: string, skillId: string) =>
+    fetch(`${HOST_URL}/api/cv/${cvId}/skills/${skillId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
 const fetchCVEducation = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/education`, {
         headers: {
@@ -144,6 +157,19 @@ const createEducationItem = (token: string, id: string, educationBody: Education
             'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(educationBody),
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+const deleteEducationItem = (token: string, cvId: string, eduId: string) =>
+    fetch(`${HOST_URL}/api/cv/${cvId}/education/${eduId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
     })
     .then(requestStatus)
     .catch(e => {
@@ -216,6 +242,19 @@ const createLanguageItem = (token: string, id: string, languageBody: LanguageIte
         throw e;
     });
 
+const deleteLanguageItem = (token: string, cvId: string, langId: string) =>
+    fetch(`${HOST_URL}/api/cv/${cvId}/languages/${langId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
 const fetchCVUser = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/user`, {
         headers: {
@@ -251,13 +290,16 @@ export const restService = {
     removeCVById,
     fetchCVSkills,
     createSkillItem,
+    deleteSkillItem,
     fetchCVEducation,
     createEducationItem,
+    deleteEducationItem,
     updateEducationItem,
     fetchCVEmployment,
     createEmploymentItem,
     fetchCVLanguages,
     createLanguageItem,
+    deleteLanguageItem,
     fetchCVUser,
     updateCVUser
 };

@@ -101,6 +101,32 @@ export const createEmptyEducation = createAsyncThunk(
   }
 )
 
+export const deleteEducationItem = createAsyncThunk(
+  'cvDetails/deleteEducationItem',
+  async (id: string, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.deleteEducationItem(authToken, cvId, id);
+      const cvEducation = await restService.fetchCVEducation(authToken, cvId);
+
+      return {
+        cvId,
+        cvEducation
+      };
+    } catch (e) {
+      throw new Error('Failed to delete Education');
+    }
+  }
+)
+
+
 export const createEmptyEmployment = createAsyncThunk(
   'cvDetails/createEmptyEmployment',
   async (_, { getState, dispatch }) => {
@@ -151,6 +177,31 @@ export const createEmptyLanguage = createAsyncThunk(
   }
 )
 
+export const deleteLanguageItem = createAsyncThunk(
+  'cvDetails/deleteLanguageItem',
+  async (id: string, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.deleteLanguageItem(authToken, cvId, id);
+      const cvLanguages = await restService.fetchCVLanguages(authToken, cvId);
+
+      return {
+        cvId,
+        cvLanguages
+      };
+    } catch (e) {
+      throw new Error('Failed to delete Language');
+    }
+  }
+)
+
 export const createEmptySkill = createAsyncThunk(
   'cvDetails/createEmptySkill',
   async (_, { getState, dispatch }) => {
@@ -171,7 +222,32 @@ export const createEmptySkill = createAsyncThunk(
         cvSkills
       };
     } catch (e) {
-      throw new Error('Failed to create Employment');
+      throw new Error('Failed to create Skill');
+    }
+  }
+)
+
+export const deleteSkillItem = createAsyncThunk(
+  'cvDetails/deleteSkillItem',
+  async (id: string, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.deleteSkillItem(authToken, cvId, id);
+      const cvSkills = await restService.fetchCVSkills(authToken, cvId);
+
+      return {
+        cvId,
+        cvSkills
+      };
+    } catch (e) {
+      throw new Error('Failed to delete Skill');
     }
   }
 )
@@ -206,6 +282,11 @@ export const cvDetailsSlice = createSlice({
         
         state.list[cvId].education = [...cvEducation];
       })
+      .addCase(deleteEducationItem.fulfilled, (state, action) => {
+        const { payload: { cvEducation, cvId } } = action;
+        
+        state.list[cvId].education = [...cvEducation];
+      })
       .addCase(createEmptyEmployment.fulfilled, (state, action) => {
         const { payload: { cvEmployment, cvId } } = action;
         
@@ -216,7 +297,17 @@ export const cvDetailsSlice = createSlice({
         
         state.list[cvId].languages = [...cvLanguages];
       })
+      .addCase(deleteLanguageItem.fulfilled, (state, action) => {
+        const { payload: { cvLanguages, cvId } } = action;
+        
+        state.list[cvId].languages = [...cvLanguages];
+      })
       .addCase(createEmptySkill.fulfilled, (state, action) => {
+        const { payload: { cvSkills, cvId } } = action;
+        
+        state.list[cvId].skills = [...cvSkills];
+      })
+      .addCase(deleteSkillItem.fulfilled, (state, action) => {
         const { payload: { cvSkills, cvId } } = action;
         
         state.list[cvId].skills = [...cvSkills];

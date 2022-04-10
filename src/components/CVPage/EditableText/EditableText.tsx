@@ -36,7 +36,7 @@ const TextArea: FC<TextAreaProps> = ({ text, placeholder, showPlaceholder, onCha
       {editMode
         ?
         <textarea
-          placeholder={`${placeholder} ✎`}
+          placeholder={placeholder}
           ref={textareaRef}
           onChange={handleTextareaChange}
           onInput={onTextAreaInput}
@@ -44,7 +44,7 @@ const TextArea: FC<TextAreaProps> = ({ text, placeholder, showPlaceholder, onCha
         />
         : <span
           className={`pwd-textarea-value${!text?.length ? ' placeholder' : ''}`}>
-            {text || (showPlaceholder && `${placeholder} ✎`)}
+            {text || (showPlaceholder && `${placeholder}`)}
           </span>
       }
     </div>

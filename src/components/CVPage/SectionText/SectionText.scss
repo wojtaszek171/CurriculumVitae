@@ -3,6 +3,7 @@
     flex-direction: row;
 
     &.edit {
+        display: flex;
         border: 2px solid black;
     }
 
@@ -21,6 +22,7 @@
         flex-direction: row;
         width: auto;
         max-height: 29px;
+        font-size: initial;
 
         &.visible {
             display: flex;

@@ -7,7 +7,11 @@ import DeleteItemButton from '../DeleteItemButton';
 import SectionText from '../SectionText';
 import './JobItem.scss';
 
-const JobItem: FC<EmploymentItem> = ({ company, position, location, startDate, endDate, details }) => {
+interface JobItemProps extends EmploymentItem {
+  onDelete: (id: string) => void;
+}
+
+const JobItem: FC<JobItemProps> = ({ id, company, position, location, startDate, endDate, details, onDelete }) => {
   const locale = useAppSelector(getSelectedLanguage);
   const tPosition = useCVTranslation(position);
   const tLocation = useCVTranslation(location);
@@ -33,8 +37,8 @@ const JobItem: FC<EmploymentItem> = ({ company, position, location, startDate, e
 
   }
 
-  const handleElementDelete = () => {
-
+  const handleDelete = () => {
+    onDelete(id);
   }
 
   const dateString = (new Date(startDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) + ' - ' + (endDate ? (new Date(endDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) : 'Present')
@@ -78,7 +82,7 @@ const JobItem: FC<EmploymentItem> = ({ company, position, location, startDate, e
           onSave={handleDetailsSave}
         />
       </div>
-      <DeleteItemButton onDeleteClick={handleElementDelete}/>
+      <DeleteItemButton onDeleteClick={handleDelete}/>
     </div>
   );
 }

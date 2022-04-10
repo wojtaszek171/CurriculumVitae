@@ -1,15 +1,17 @@
 import { FC } from 'react';
 import useCVTranslation from '../../../helpers/useCVTranslation';
-import { deleteEducationItem } from '../../../store/cvDetails/cvDetailsSlice';
 import { getSelectedLanguage } from '../../../store/cvDetails/selector';
 import { EducationItem as EducationItemType } from '../../../store/cvDetails/types';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAppSelector } from '../../../store/hooks';
 import DeleteItemButton from '../DeleteItemButton';
 import SectionText from '../SectionText';
 import './EducationItem.scss';
 
-const EducationItem: FC<EducationItemType> = ({ id, school, location, degree, details, startDate, endDate }) => {
-  const dispatch = useAppDispatch();
+interface EducationItemProps extends EducationItemType {
+  onDelete: (id: string) => void;
+}
+
+const EducationItem: FC<EducationItemProps> = ({ id, school, location, degree, details, startDate, endDate, onDelete }) => {
   const locale = useAppSelector(getSelectedLanguage);
   const tSchool = useCVTranslation(school);
   const tLocation = useCVTranslation(location);
@@ -33,7 +35,7 @@ const EducationItem: FC<EducationItemType> = ({ id, school, location, degree, de
   };
 
   const handleElementDelete = () => {
-    dispatch(deleteEducationItem(id))
+    onDelete(id);
   };
 
   const dateString = (new Date(startDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) + ' - ' + (endDate ? (new Date(endDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) : 'Present')

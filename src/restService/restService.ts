@@ -216,6 +216,19 @@ const createEmploymentItem = (token: string, id: string, employmentBody: Employm
         throw e;
     });
 
+const deleteEmploymentItem = (token: string, cvId: string, empId: string) =>
+    fetch(`${HOST_URL}/api/cv/${cvId}/employment/${empId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
 const fetchCVLanguages = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/languages`, {
         headers: {
@@ -297,6 +310,7 @@ export const restService = {
     updateEducationItem,
     fetchCVEmployment,
     createEmploymentItem,
+    deleteEmploymentItem,
     fetchCVLanguages,
     createLanguageItem,
     deleteLanguageItem,

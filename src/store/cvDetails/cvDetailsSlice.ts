@@ -152,6 +152,31 @@ export const createEmptyEmployment = createAsyncThunk(
   }
 )
 
+export const deleteEmploymentItem = createAsyncThunk(
+  'cvDetails/deleteEmploymentItem',
+  async (id: string, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.deleteEmploymentItem(authToken, cvId, id);
+      const cvEmployment = await restService.fetchCVEmployment(authToken, cvId);
+
+      return {
+        cvId,
+        cvEmployment
+      };
+    } catch (e) {
+      throw new Error('Failed to delete Employment');
+    }
+  }
+)
+
 export const createEmptyLanguage = createAsyncThunk(
   'cvDetails/createEmptyLanguage',
   async (_, { getState, dispatch }) => {
@@ -288,6 +313,11 @@ export const cvDetailsSlice = createSlice({
         state.list[cvId].education = [...cvEducation];
       })
       .addCase(createEmptyEmployment.fulfilled, (state, action) => {
+        const { payload: { cvEmployment, cvId } } = action;
+        
+        state.list[cvId].employment = [...cvEmployment];
+      })
+      .addCase(deleteEmploymentItem.fulfilled, (state, action) => {
         const { payload: { cvEmployment, cvId } } = action;
         
         state.list[cvId].employment = [...cvEmployment];

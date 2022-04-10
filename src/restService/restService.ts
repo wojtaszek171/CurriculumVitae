@@ -176,8 +176,8 @@ const deleteEducationItem = (token: string, cvId: string, eduId: string) =>
         throw e;
     });
 
-const updateEducationItem = (token: string, id: string, eduId: string, educationBody: EducationItem) =>
-    fetch(`${HOST_URL}/api/cv/${id}/education${eduId}`, {
+const updateEducationItem = (token: string, id: string, eduId: string, educationBody: Partial<EducationItem>) =>
+    fetch(`${HOST_URL}/api/cv/${id}/education/${eduId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -223,6 +223,20 @@ const deleteEmploymentItem = (token: string, cvId: string, empId: string) =>
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
+const updateEmploymentItem = (token: string, id: string, eduId: string, employmentBody: Partial<EmploymentItem>) =>
+    fetch(`${HOST_URL}/api/cv/${id}/employment/${eduId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(employmentBody),
     })
     .then(requestStatus)
     .catch(e => {
@@ -311,6 +325,7 @@ export const restService = {
     fetchCVEmployment,
     createEmploymentItem,
     deleteEmploymentItem,
+    updateEmploymentItem,
     fetchCVLanguages,
     createLanguageItem,
     deleteLanguageItem,

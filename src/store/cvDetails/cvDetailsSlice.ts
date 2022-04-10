@@ -126,6 +126,30 @@ export const deleteEducationItem = createAsyncThunk(
   }
 )
 
+export const updateEducationItem = createAsyncThunk(
+  'cvDetails/updateEducationItem',
+  async ({ id, body }: { id: string, body: Partial<EducationItem>}, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.updateEducationItem(authToken, cvId, id, body);
+      const cvEducation = await restService.fetchCVEducation(authToken, cvId);
+
+      return {
+        cvId,
+        cvEducation
+      };
+    } catch (e) {
+      throw new Error('Failed to delete Education');
+    }
+  }
+)
 
 export const createEmptyEmployment = createAsyncThunk(
   'cvDetails/createEmptyEmployment',
@@ -173,6 +197,31 @@ export const deleteEmploymentItem = createAsyncThunk(
       };
     } catch (e) {
       throw new Error('Failed to delete Employment');
+    }
+  }
+)
+
+export const updateEmploymentItem = createAsyncThunk(
+  'cvDetails/updateEmploymentItem',
+  async ({ id, body }: { id: string, body: Partial<EmploymentItem>}, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.updateEmploymentItem(authToken, cvId, id, body);
+      const cvEmployment = await restService.fetchCVEmployment(authToken, cvId);
+
+      return {
+        cvId,
+        cvEmployment
+      };
+    } catch (e) {
+      throw new Error('Failed to update Employment');
     }
   }
 )
@@ -312,12 +361,22 @@ export const cvDetailsSlice = createSlice({
         
         state.list[cvId].education = [...cvEducation];
       })
+      .addCase(updateEducationItem.fulfilled, (state, action) => {
+        const { payload: { cvEducation, cvId } } = action;
+        
+        state.list[cvId].education = [...cvEducation];
+      })
       .addCase(createEmptyEmployment.fulfilled, (state, action) => {
         const { payload: { cvEmployment, cvId } } = action;
         
         state.list[cvId].employment = [...cvEmployment];
       })
       .addCase(deleteEmploymentItem.fulfilled, (state, action) => {
+        const { payload: { cvEmployment, cvId } } = action;
+        
+        state.list[cvId].employment = [...cvEmployment];
+      })
+      .addCase(updateEmploymentItem.fulfilled, (state, action) => {
         const { payload: { cvEmployment, cvId } } = action;
         
         state.list[cvId].employment = [...cvEmployment];

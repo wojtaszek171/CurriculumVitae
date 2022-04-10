@@ -1,5 +1,5 @@
 .section-text-component {
-    display: flex;
+    display: inline-flex;
     flex-direction: row;
 
     &.edit {
@@ -19,9 +19,8 @@
     .section-text-edit-buttons {
         display: none;
         flex-direction: row;
-        padding-left: 10px;
         width: auto;
-        height: 29px;
+        max-height: 29px;
 
         &.visible {
             display: flex;
@@ -30,10 +29,7 @@
         span {
             cursor: pointer;
             text-align: center;
-            line-height: 26px;
-            font-size: 20px;
-            width: 27px;
-            padding-left: 2px;
+            width: 21px;
 
             &.save-button {
                 color: #fff;

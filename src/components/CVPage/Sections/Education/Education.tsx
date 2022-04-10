@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { getCVDetailsEducation } from '../../../../store/cvDetails/selector';
 import { EducationItem as EducationItemType } from '../../../../store/cvDetails/types';
 import { useAppDispatch } from '../../../../store/hooks';
-import { createEmptyEducation, deleteEducationItem } from '../../../../store/cvDetails/cvDetailsSlice';
+import { createEmptyEducation } from '../../../../store/cvDetails/cvDetailsSlice';
 
 const Education: FC = () => {
   const educationItems = useSelector(getCVDetailsEducation);
@@ -16,10 +16,6 @@ const Education: FC = () => {
     dispatch(createEmptyEducation());
   };
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteEducationItem(id))
-  }
-
   return (
     <SectionWrapper
       title='Education'
@@ -27,7 +23,6 @@ const Education: FC = () => {
       <>
         {educationItems.map((item: EducationItemType) =>
           <EducationItem
-            onDelete={handleDelete}
             key={item.id}
             {...item}
           />

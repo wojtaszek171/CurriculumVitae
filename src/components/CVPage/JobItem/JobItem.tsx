@@ -1,47 +1,47 @@
 import { FC } from 'react';
 import useCVTranslation from '../../../helpers/useCVTranslation';
+import { deleteEmploymentItem, updateEmploymentItem } from '../../../store/cvDetails/cvDetailsSlice';
 import { getSelectedLanguage } from '../../../store/cvDetails/selector';
 import { EmploymentItem } from '../../../store/cvDetails/types';
-import { useAppSelector } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import DeleteItemButton from '../DeleteItemButton';
 import SectionText from '../SectionText';
 import './JobItem.scss';
 
-interface JobItemProps extends EmploymentItem {
-  onDelete: (id: string) => void;
-}
+interface JobItemProps extends EmploymentItem {}
 
-const JobItem: FC<JobItemProps> = ({ id, company, position, location, startDate, endDate, details, onDelete }) => {
+const JobItem: FC<JobItemProps> = ({ id, company, position, location, startDate, endDate, details }) => {
+  const dispatch = useAppDispatch();
   const locale = useAppSelector(getSelectedLanguage);
   const tPosition = useCVTranslation(position);
   const tLocation = useCVTranslation(location);
   const tDetails = useCVTranslation(details);
 
-  const handleTitleSave = () => {
-
+  const handleTitleSave = (position: string) => {
+    dispatch(updateEmploymentItem({ id, body: { position: { [locale]: position }}}));
   }
 
-  const handleLocationSave = () => {
-
+  const handleLocationSave = (location: string) => {
+    dispatch(updateEmploymentItem({ id, body: { location: { [locale]: location }}}));
   }
 
-  const handleCompanySave = () => {
-
+  const handleCompanySave = (company: string) => {
+    dispatch(updateEmploymentItem({ id, body: { company }}));
   }
 
   const handleTimeFrameSave = () => {
-
+    // TODO: redesign time edit
   }
 
-  const handleDetailsSave = () => {
-
+  const handleDetailsSave = (details: string) => {
+    dispatch(updateEmploymentItem({ id, body: { details: { [locale]: details }}}));
   }
 
   const handleDelete = () => {
-    onDelete(id);
+    dispatch(deleteEmploymentItem(id));
   }
 
-  const dateString = (new Date(startDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) + ' - ' + (endDate ? (new Date(endDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) : 'Present')
+  const dateString = (startDate ? (new Date(startDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) : '') + ' - ' + (endDate ? (new Date(endDate)).toLocaleDateString(locale, { year: "numeric", month: "short"}) : 'Present')
 
   return (
     <div className='job-component'>
@@ -52,9 +52,9 @@ const JobItem: FC<JobItemProps> = ({ id, company, position, location, startDate,
             text={tPosition}
             onSave={handleTitleSave}
           />
-          {!!(tPosition.length && company.length) && <span>,&nbsp;</span>}
+          {!!(tPosition?.length && company?.length) && <span>,&nbsp;</span>}
           <SectionText
-            placeholder='Location'
+            placeholder='Company'
             text={company}
             onSave={handleCompanySave}
           />

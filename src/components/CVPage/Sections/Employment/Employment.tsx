@@ -5,7 +5,7 @@ import JobItem from '../../JobItem';
 import { useSelector } from 'react-redux';
 import { getCVDetailsEmployment } from '../../../../store/cvDetails/selector';
 import { EmploymentItem } from '../../../../store/cvDetails/types';
-import { createEmptyEmployment, deleteEmploymentItem } from '../../../../store/cvDetails/cvDetailsSlice';
+import { createEmptyEmployment } from '../../../../store/cvDetails/cvDetailsSlice';
 import { useAppDispatch } from '../../../../store/hooks';
 
 const Employment: FC = () => {
@@ -16,10 +16,6 @@ const Employment: FC = () => {
     dispatch(createEmptyEmployment());
   };
 
-  const deleteSection = (id: string) => {
-    dispatch(deleteEmploymentItem(id));
-  };
-
   return (
     <SectionWrapper
       title='Employment'
@@ -27,7 +23,6 @@ const Employment: FC = () => {
       <>
         {employmentItems.map((item: EmploymentItem) =>
           <JobItem
-            onDelete={deleteSection}
             key={item.id}
             {...item}
           />

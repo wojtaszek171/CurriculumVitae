@@ -1,9 +1,7 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import useCVTranslation from '../../../helpers/useCVTranslation';
-import { deleteSkillItem } from '../../../store/cvDetails/cvDetailsSlice';
 import { LanguageItem } from '../../../store/cvDetails/types';
-import { useAppDispatch } from '../../../store/hooks';
 import { getIsTokenValid } from '../../../store/session/selector';
 import DeleteItemButton from '../DeleteItemButton';
 import SectionText from '../SectionText';
@@ -13,19 +11,20 @@ const RATING_MAX = 5;
 
 interface SkillItemProps extends LanguageItem {
   onDelete: (id: string) => void;
+  onNameSave: (id: string, name: string) => void;
+  onRatingChange: (id: string, rating: number) => void;
 }
 
-const SkillItem: FC<SkillItemProps> = ({ id, name, rating, onDelete }) => {
-  const dispatch = useAppDispatch();
+const SkillItem: FC<SkillItemProps> = ({ id, name, rating, onDelete, onNameSave, onRatingChange }) => {
   const isLoggedIn = useSelector(getIsTokenValid);
   const tName = useCVTranslation(name);
 
-  const handleSkillNameSave = () => {
-
+  const handleSkillNameSave = (newName: string) => {
+    onNameSave(id, newName)
   };
 
-  const handleRatingChange = (rating: number) => {
-    
+  const handleRatingChange = (newRating: number) => {
+    onRatingChange(id, newRating)
   };
 
   const handleElementDelete = () => {

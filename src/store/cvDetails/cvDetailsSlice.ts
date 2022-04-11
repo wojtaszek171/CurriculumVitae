@@ -276,6 +276,31 @@ export const deleteLanguageItem = createAsyncThunk(
   }
 )
 
+export const updateLanguageItem = createAsyncThunk(
+  'cvDetails/updateLanguageItem',
+  async ({ id, body }: { id: string, body: Partial<LanguageItem>}, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.updateLanguageItem(authToken, cvId, id, body);
+      const cvLanguages = await restService.fetchCVLanguages(authToken, cvId);
+
+      return {
+        cvId,
+        cvLanguages
+      };
+    } catch (e) {
+      throw new Error('Failed to update Language');
+    }
+  }
+)
+
 export const createEmptySkill = createAsyncThunk(
   'cvDetails/createEmptySkill',
   async (_, { getState, dispatch }) => {
@@ -322,6 +347,31 @@ export const deleteSkillItem = createAsyncThunk(
       };
     } catch (e) {
       throw new Error('Failed to delete Skill');
+    }
+  }
+)
+
+export const updateSkillItem = createAsyncThunk(
+  'cvDetails/updateSkillItem',
+  async ({ id, body }: { id: string, body: Partial<SkillItem>}, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const authToken = getAuthToken(state);
+    const cvId = getSelectedCVId(state);
+
+    if (!cvId) {
+      throw new Error('No cv selected');
+    }
+
+    try {
+      await restService.updateSkillItem(authToken, cvId, id, body);
+      const cvLanguages = await restService.fetchCVLanguages(authToken, cvId);
+
+      return {
+        cvId,
+        cvLanguages
+      };
+    } catch (e) {
+      throw new Error('Failed to update Skill');
     }
   }
 )
@@ -387,6 +437,11 @@ export const cvDetailsSlice = createSlice({
         state.list[cvId].languages = [...cvLanguages];
       })
       .addCase(deleteLanguageItem.fulfilled, (state, action) => {
+        const { payload: { cvLanguages, cvId } } = action;
+        
+        state.list[cvId].languages = [...cvLanguages];
+      })
+      .addCase(updateLanguageItem.fulfilled, (state, action) => {
         const { payload: { cvLanguages, cvId } } = action;
         
         state.list[cvId].languages = [...cvLanguages];

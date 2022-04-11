@@ -137,6 +137,20 @@ const deleteSkillItem = (token: string, cvId: string, skillId: string) =>
         throw e;
     });
 
+const updateSkillItem = (token: string, id: string, eduId: string, skillBody: Partial<SkillItem>) =>
+    fetch(`${HOST_URL}/api/cv/${id}/skills/${eduId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(skillBody),
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
 const fetchCVEducation = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/education`, {
         headers: {
@@ -282,6 +296,20 @@ const deleteLanguageItem = (token: string, cvId: string, langId: string) =>
         throw e;
     });
 
+const updateLanguageItem = (token: string, id: string, eduId: string, languageBody: Partial<LanguageItem>) =>
+    fetch(`${HOST_URL}/api/cv/${id}/languages/${eduId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(languageBody),
+    })
+    .then(requestStatus)
+    .catch(e => {
+        throw e;
+    });
+
 const fetchCVUser = (token: string, id: string) =>
     fetch(`${HOST_URL}/api/cv/${id}/user`, {
         headers: {
@@ -318,6 +346,7 @@ export const restService = {
     fetchCVSkills,
     createSkillItem,
     deleteSkillItem,
+    updateSkillItem,
     fetchCVEducation,
     createEducationItem,
     deleteEducationItem,
@@ -329,6 +358,7 @@ export const restService = {
     fetchCVLanguages,
     createLanguageItem,
     deleteLanguageItem,
+    updateLanguageItem,
     fetchCVUser,
     updateCVUser
 };

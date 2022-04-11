@@ -364,11 +364,11 @@ export const updateSkillItem = createAsyncThunk(
 
     try {
       await restService.updateSkillItem(authToken, cvId, id, body);
-      const cvLanguages = await restService.fetchCVLanguages(authToken, cvId);
+      const cvSkills = await restService.fetchCVSkills(authToken, cvId);
 
       return {
         cvId,
-        cvLanguages
+        cvSkills
       };
     } catch (e) {
       throw new Error('Failed to update Skill');
@@ -452,6 +452,11 @@ export const cvDetailsSlice = createSlice({
         state.list[cvId].skills = [...cvSkills];
       })
       .addCase(deleteSkillItem.fulfilled, (state, action) => {
+        const { payload: { cvSkills, cvId } } = action;
+        
+        state.list[cvId].skills = [...cvSkills];
+      })
+      .addCase(updateSkillItem.fulfilled, (state, action) => {
         const { payload: { cvSkills, cvId } } = action;
         
         state.list[cvId].skills = [...cvSkills];

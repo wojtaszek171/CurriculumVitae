@@ -137,8 +137,8 @@ const deleteSkillItem = (token: string, cvId: string, skillId: string) =>
         throw e;
     });
 
-const updateSkillItem = (token: string, id: string, eduId: string, skillBody: Partial<SkillItem>) =>
-    fetch(`${HOST_URL}/api/cv/${id}/skills/${eduId}`, {
+const updateSkillItem = (token: string, id: string, skillId: string, skillBody: Partial<SkillItem>) =>
+    fetch(`${HOST_URL}/api/cv/${id}/skills/${skillId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
